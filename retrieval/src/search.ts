@@ -169,6 +169,57 @@ type ScoredEntry = {
   };
 };
 
+export type RetrievalAblationMode =
+  | "full"
+  | "no_bm25"
+  | "no_embedding"
+  | "no_rerank"
+  | "no_query_expansion"
+  | "no_diversity"
+  | "bm25_only"
+  | "embedding_only";
+
+const RETRIEVAL_METHOD_BY_MODE: Record<RetrievalAblationMode, string> = {
+  full: "bm25+local_hash_embedding+heuristic_rerank",
+  no_bm25: "ablation:no_bm25+local_hash_embedding+heuristic_rerank",
+  no_embedding: "ablation:bm25+no_embedding+heuristic_rerank",
+  no_rerank: "ablation:bm25+local_hash_embedding+no_rerank",
+  no_query_expansion: "ablation:no_query_expansion",
+  no_diversity: "ablation:no_diverse_topk",
+  bm25_only: "ablation:bm25_only",
+  embedding_only: "ablation:local_hash_embedding_only",
+};
+
+function componentWeights(mode: RetrievalAblationMode) {
+  const base = {
+    bm25: 0.45,
+    embedding: 0.35,
+    rerank: 0.2,
+  };
+  const weights = { ...base };
+
+  if (mode === "no_bm25" || mode === "embedding_only") {
+    weights.bm25 = 0;
+  }
+  if (mode === "no_embedding" || mode === "bm25_only") {
+    weights.embedding = 0;
+  }
+  if (
+    mode === "no_rerank" ||
+    mode === "bm25_only" ||
+    mode === "embedding_only"
+  ) {
+    weights.rerank = 0;
+  }
+
+  const total = weights.bm25 + weights.embedding + weights.rerank || 1;
+  return {
+    bm25: weights.bm25 / total,
+    embedding: weights.embedding / total,
+    rerank: weights.rerank / total,
+  };
+}
+
 function selectDiverseTopK(scored: ScoredEntry[], topK: number): ScoredEntry[] {
   const selected: ScoredEntry[] = [];
   const used = new Set<ScoredEntry>();
@@ -199,11 +250,16 @@ export function retrieveMedicalEvidence(options: {
   query: string;
   featureNames?: string[];
   topK?: number;
+  ablationMode?: RetrievalAblationMode;
 }): RetrievalResult {
   const featureNames = options.featureNames ?? [];
   const topK = options.topK ?? 5;
+  const ablationMode = options.ablationMode ?? "full";
   const knowledgeBase = loadKnowledgeBase();
-  const expandedQuery = expandQuery(options.query, featureNames);
+  const expandedQuery =
+    ablationMode === "no_query_expansion"
+      ? options.query
+      : expandQuery(options.query, featureNames);
   const queryTokens = tokenize(expandedQuery);
   const queryTokenSet = new Set(queryTokens);
   const documentTokens = knowledgeBase.map((entry) =>
@@ -216,6 +272,7 @@ export function retrieveMedicalEvidence(options: {
   const embedding = documentTokens.map((tokens) =>
     cosine(queryVector, hashedVector(tokens)),
   );
+  const weights = componentWeights(ablationMode);
 
   const scored = knowledgeBase
     .map((entry, index): ScoredEntry => {
@@ -228,7 +285,10 @@ export function retrieveMedicalEvidence(options: {
         0.5 * termCoverage + 0.35 * featureCoverage + 0.15 * traceableSource;
       const bm25Score = bm25[index] ?? 0;
       const embeddingScore = embedding[index] ?? 0;
-      const final = 0.45 * bm25Score + 0.35 * embeddingScore + 0.2 * rerank;
+      const final =
+        weights.bm25 * bm25Score +
+        weights.embedding * embeddingScore +
+        weights.rerank * rerank;
 
       return {
         entry,
@@ -244,7 +304,11 @@ export function retrieveMedicalEvidence(options: {
     })
     .sort((left, right) => right.scores.final - left.scores.final);
 
-  const results = selectDiverseTopK(scored, topK).map(
+  const selected =
+    ablationMode === "no_diversity"
+      ? scored.slice(0, topK)
+      : selectDiverseTopK(scored, topK);
+  const results = selected.map(
     ({ entry, matchedTerms: matches, scores }) => ({
       id: entry.id,
       title: entry.title,
@@ -272,7 +336,7 @@ export function retrieveMedicalEvidence(options: {
     topK,
     evidenceSufficient,
     confidence,
-    retrievalMethod: "bm25+local_hash_embedding+heuristic_rerank",
+    retrievalMethod: RETRIEVAL_METHOD_BY_MODE[ablationMode],
     results,
     safetyNotice: SYNTHETIC_DATA_NOTICE,
     citationInstruction: CITATION_INSTRUCTION,

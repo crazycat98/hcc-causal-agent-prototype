@@ -8,7 +8,10 @@ import {
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { retrieveMedicalEvidence } from "../retrieval/src/search.js";
+import {
+  retrieveMedicalEvidence,
+  type RetrievalAblationMode,
+} from "../retrieval/src/search.js";
 import { runHccAgent } from "../agent/src/runner.js";
 import { hccFeatureSchema, type HccFeatures } from "../agent/src/features.js";
 
@@ -43,6 +46,45 @@ type EvalMetric = {
   numerator: number;
   denominator: number;
   value: number;
+};
+
+type RetrievalAblationVariant = {
+  mode: RetrievalAblationMode;
+  label: string;
+  metrics: EvalMetric[];
+  deltasFromFullPp: Record<string, number>;
+  details: Array<{
+    id: string;
+    retrievedIds: string[];
+    expectedAnyIds: string[];
+    topKHit: boolean;
+    top1Correct: boolean;
+    reciprocalRank: number;
+    evidenceSufficient: boolean;
+    confidence: string;
+  }>;
+};
+
+const retrievalAblationModes: RetrievalAblationMode[] = [
+  "full",
+  "no_bm25",
+  "no_embedding",
+  "no_rerank",
+  "no_query_expansion",
+  "no_diversity",
+  "bm25_only",
+  "embedding_only",
+];
+
+const retrievalAblationLabels: Record<RetrievalAblationMode, string> = {
+  full: "full_hybrid",
+  no_bm25: "remove_bm25",
+  no_embedding: "remove_embedding",
+  no_rerank: "remove_rerank",
+  no_query_expansion: "remove_query_expansion",
+  no_diversity: "remove_diverse_topk",
+  bm25_only: "bm25_only",
+  embedding_only: "embedding_only",
 };
 
 const standardFeatures: HccFeatures = {
@@ -263,6 +305,127 @@ async function evaluateMedicalQa(cases: MedicalQaCase[]) {
   };
 }
 
+function firstExpectedRank(ids: string[], expectedAnyIds: string[]): number | undefined {
+  const rank = ids.findIndex((id) => expectedAnyIds.includes(id));
+  return rank >= 0 ? rank + 1 : undefined;
+}
+
+function metricByName(metrics: EvalMetric[], name: string): EvalMetric {
+  const found = metrics.find((item) => item.name === name);
+  if (!found) {
+    throw new Error(`Missing metric: ${name}`);
+  }
+  return found;
+}
+
+function evaluateRetrievalAblationVariant(
+  cases: MedicalQaCase[],
+  mode: RetrievalAblationMode,
+) {
+  const details = cases.map((item) => {
+    const result = retrieveMedicalEvidence({
+      query: item.query,
+      featureNames: item.featureNames,
+      topK: 5,
+      ablationMode: mode,
+    });
+    const ids = result.results.map((hit) => hit.id);
+    const rank = firstExpectedRank(ids, item.expectedAnyIds);
+    const isNoEvidenceCase = item.expectedAnyIds.length === 0;
+    const topKHit = isNoEvidenceCase
+      ? !result.evidenceSufficient
+      : rank !== undefined;
+    const top1Correct = isNoEvidenceCase
+      ? !result.evidenceSufficient
+      : rank === 1;
+    const reciprocalRank = isNoEvidenceCase
+      ? !result.evidenceSufficient
+        ? 1
+        : 0
+      : rank === undefined
+        ? 0
+        : 1 / rank;
+    const sufficiencyCorrect = result.evidenceSufficient === item.expectSufficient;
+    const traceableSources = result.results.every((hitItem) =>
+      hitItem.source.url.startsWith("https://"),
+    );
+
+    return {
+      id: item.id,
+      retrievedIds: ids,
+      expectedAnyIds: item.expectedAnyIds,
+      topKHit,
+      top1Correct,
+      reciprocalRank: Number(reciprocalRank.toFixed(4)),
+      sufficiencyCorrect,
+      traceableSources,
+      evidenceSufficient: result.evidenceSufficient,
+      confidence: result.confidence,
+    };
+  });
+
+  const reciprocalRankSum = details.reduce(
+    (sum, item) => sum + item.reciprocalRank,
+    0,
+  );
+
+  return {
+    mode,
+    label: retrievalAblationLabels[mode],
+    metrics: [
+      metric(
+        "retrieval_expected_id_or_low_confidence_accuracy",
+        details.filter((item) => item.topKHit).length,
+        details.length,
+      ),
+      metric(
+        "retrieval_top1_expected_accuracy",
+        details.filter((item) => item.top1Correct).length,
+        details.length,
+      ),
+      metric(
+        "retrieval_mrr",
+        Number(reciprocalRankSum.toFixed(4)),
+        details.length,
+      ),
+      metric(
+        "retrieval_sufficiency_accuracy",
+        details.filter((item) => item.sufficiencyCorrect).length,
+        details.length,
+      ),
+      metric(
+        "retrieval_traceable_source_rate",
+        details.filter((item) => item.traceableSources).length,
+        details.length,
+      ),
+    ],
+    deltasFromFullPp: {},
+    details,
+  } satisfies RetrievalAblationVariant;
+}
+
+function evaluateRetrievalAblations(cases: MedicalQaCase[]) {
+  const variants = retrievalAblationModes.map((mode) =>
+    evaluateRetrievalAblationVariant(cases, mode),
+  );
+  const full = variants.find((variant) => variant.mode === "full");
+  if (!full) {
+    throw new Error("Full retrieval ablation baseline is missing.");
+  }
+  const metricNames = full.metrics.map((item) => item.name);
+
+  return variants.map((variant) => ({
+    ...variant,
+    deltasFromFullPp: Object.fromEntries(
+      metricNames.map((name) => {
+        const fullValue = metricByName(full.metrics, name).value;
+        const variantValue = metricByName(variant.metrics, name).value;
+        return [name, Number(((variantValue - fullValue) * 100).toFixed(1))];
+      }),
+    ),
+  }));
+}
+
 function hasRequiredReportSections(text: string) {
   const sections = [
     "安全声明",
@@ -465,7 +628,55 @@ function flattenMetrics(sections: Array<{ metrics: EvalMetric[] }>) {
 function markdownReport(report: {
   generatedAt: string;
   summary: { overallPassRate: number; metrics: EvalMetric[] };
+  sections?: {
+    retrievalAblations?: RetrievalAblationVariant[];
+  };
 }) {
+  const retrievalAblations = report.sections?.retrievalAblations ?? [];
+  const ablationLines =
+    retrievalAblations.length === 0
+      ? []
+      : [
+          "## Retrieval Ablation",
+          "",
+          "Delta columns are percentage-point changes versus `full_hybrid`; negative values mean the metric dropped after removing that component.",
+          "",
+          "| Variant | Top-K Evidence | Δ pp | Top-1 Evidence | Δ pp | MRR | Δ pp | Sufficiency | Δ pp | Traceable Source | Δ pp |",
+          "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+          ...retrievalAblations.map((variant) => {
+            const topK = metricByName(
+              variant.metrics,
+              "retrieval_expected_id_or_low_confidence_accuracy",
+            );
+            const top1 = metricByName(
+              variant.metrics,
+              "retrieval_top1_expected_accuracy",
+            );
+            const mrr = metricByName(variant.metrics, "retrieval_mrr");
+            const sufficiency = metricByName(
+              variant.metrics,
+              "retrieval_sufficiency_accuracy",
+            );
+            const traceable = metricByName(
+              variant.metrics,
+              "retrieval_traceable_source_rate",
+            );
+            return [
+              `| ${variant.label}`,
+              `${(topK.value * 100).toFixed(1)}%`,
+              `${variant.deltasFromFullPp[topK.name].toFixed(1)}`,
+              `${(top1.value * 100).toFixed(1)}%`,
+              `${variant.deltasFromFullPp[top1.name].toFixed(1)}`,
+              `${mrr.value.toFixed(3)}`,
+              `${variant.deltasFromFullPp[mrr.name].toFixed(1)}`,
+              `${(sufficiency.value * 100).toFixed(1)}%`,
+              `${variant.deltasFromFullPp[sufficiency.name].toFixed(1)}`,
+              `${(traceable.value * 100).toFixed(1)}%`,
+              `${variant.deltasFromFullPp[traceable.name].toFixed(1)} |`,
+            ].join(" | ");
+          }),
+          "",
+        ];
   const lines = [
     "# M6 Evaluation Report",
     "",
@@ -482,6 +693,7 @@ function markdownReport(report: {
         `| ${item.name} | ${(item.value * 100).toFixed(1)}% | ${item.numerator} | ${item.denominator} |`,
     ),
     "",
+    ...ablationLines,
     "## Safety Note",
     "",
     "All evaluated inputs and memory records are synthetic demo data. This evaluation does not validate clinical performance.",
@@ -502,6 +714,7 @@ async function main() {
       explanationEndpoint: `${baseUrl}/explain`,
     };
     const retrieval = await evaluateMedicalQa(medicalQa);
+    const retrievalAblations = evaluateRetrievalAblations(medicalQa);
     const patients = await evaluatePatientCases(patientCases, endpoints);
     const safety = await evaluateSafetyCases(safetyCases, endpoints);
     const metrics = flattenMetrics([retrieval, patients, safety]);
@@ -520,6 +733,7 @@ async function main() {
       },
       sections: {
         retrieval,
+        retrievalAblations,
         patients,
         safety,
       },
@@ -550,4 +764,3 @@ async function main() {
 }
 
 await main();
-

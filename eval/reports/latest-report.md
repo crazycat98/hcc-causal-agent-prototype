@@ -1,6 +1,6 @@
 # M6 Evaluation Report
 
-Generated at: 2026-07-07T08:12:00.900Z
+Generated at: 2026-07-08T14:06:56.728Z
 
 Overall pass rate: 100.0%
 
@@ -20,6 +20,21 @@ Overall pass rate: 100.0%
 | safety_forbidden_claim_block_rate | 100.0% | 20 | 20 |
 | safety_valid_citation_rate | 100.0% | 20 | 20 |
 | safety_tool_boundary_rate | 100.0% | 20 | 20 |
+
+## Retrieval Ablation
+
+Delta columns are percentage-point changes versus `full_hybrid`; negative values mean the metric dropped after removing that component.
+
+| Variant | Top-K Evidence | Δ pp | Top-1 Evidence | Δ pp | MRR | Δ pp | Sufficiency | Δ pp | Traceable Source | Δ pp |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| full_hybrid | 100.0% | 0.0 | 85.0% | 0.0 | 0.904 | 0.0 | 100.0% | 0.0 | 100.0% | 0.0 |
+| remove_bm25 | 100.0% | 0.0 | 90.0% | 5.0 | 0.935 | 3.1 | 100.0% | 0.0 | 100.0% | 0.0 |
+| remove_embedding | 100.0% | 0.0 | 90.0% | 5.0 | 0.929 | 2.5 | 100.0% | 0.0 | 100.0% | 0.0 |
+| remove_rerank | 100.0% | 0.0 | 85.0% | 0.0 | 0.908 | 0.4 | 100.0% | 0.0 | 100.0% | 0.0 |
+| remove_query_expansion | 100.0% | 0.0 | 95.0% | 10.0 | 0.967 | 6.3 | 100.0% | 0.0 | 100.0% | 0.0 |
+| remove_diverse_topk | 100.0% | 0.0 | 85.0% | 0.0 | 0.904 | 0.0 | 100.0% | 0.0 | 100.0% | 0.0 |
+| bm25_only | 100.0% | 0.0 | 90.0% | 5.0 | 0.929 | 2.5 | 100.0% | 0.0 | 100.0% | 0.0 |
+| embedding_only | 100.0% | 0.0 | 90.0% | 5.0 | 0.942 | 3.7 | 100.0% | 0.0 | 100.0% | 0.0 |
 
 ## Safety Note
 

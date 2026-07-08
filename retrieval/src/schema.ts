@@ -42,7 +42,7 @@ export const retrievalResultSchema = z
     topK: z.number().int(),
     evidenceSufficient: z.boolean(),
     confidence: z.enum(["high", "medium", "low"]),
-    retrievalMethod: z.literal("bm25+local_hash_embedding+heuristic_rerank"),
+    retrievalMethod: z.string().min(1),
     results: z.array(retrievalHitSchema),
     safetyNotice: z.string(),
     citationInstruction: z.string(),
@@ -52,4 +52,3 @@ export const retrievalResultSchema = z
 export type KnowledgeEntry = z.infer<typeof knowledgeEntrySchema>;
 export type RetrievalHit = z.infer<typeof retrievalHitSchema>;
 export type RetrievalResult = z.infer<typeof retrievalResultSchema>;
-

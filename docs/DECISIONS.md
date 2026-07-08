@@ -166,3 +166,29 @@ The web demo depends on the local Python ML service for `/predict` and `/explain
 The existing TypeScript Agent code uses NodeNext-style `.js` import specifiers that are resolved to `.ts` source files by `tsc` and `tsx`. Next 16's default Turbopack build did not resolve those external workspace imports in this repository layout, so M7 uses `next dev/build --webpack` with `resolve.extensionAlias` for `.js -> .ts/.tsx/.js`.
 
 This preserves direct imports from the web API route to the existing Agent runner instead of adding a duplicate HTTP adapter or a subprocess bridge.
+
+## M8
+
+### Retrieval Ablation Evaluation
+
+M8 adds module-level ablation for the local hybrid retrieval chain. The evaluator re-runs the 20-case medical QA set under these modes:
+
+- full hybrid retrieval
+- remove BM25
+- remove local hash embedding
+- remove heuristic rerank
+- remove query expansion
+- remove diverse Top-K selection
+- BM25 only
+- embedding only
+
+The ablation report includes Top-K expected-evidence accuracy, Top-1 expected-evidence accuracy, MRR, sufficiency accuracy, traceable-source rate, and percentage-point deltas versus `full_hybrid`.
+
+### Current Finding
+
+On the current small medical QA set, Top-K evidence accuracy remains 100% across variants, but ranking-sensitive metrics expose a tuning issue:
+
+- `full_hybrid`: Top-1 evidence accuracy 85.0%, MRR 0.904.
+- `remove_query_expansion`: Top-1 evidence accuracy 95.0% (+10.0 pp), MRR 0.967 (+6.3 pp).
+
+This indicates that broad query expansion can dilute ranking quality in the 20-entry prototype knowledge base. The next optimization should make expansion term-aware and weight-controlled rather than appending all feature synonyms uniformly.

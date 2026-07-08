@@ -81,6 +81,7 @@ positive_rate=0.540
 - Medical QA set evaluates retrieval expected evidence and source traceability.
 - Synthetic patient set evaluates tool-call accuracy, report field completeness, missing-feature clarification, uncertainty annotation, and revisit trend output.
 - Safety set evaluates disclaimer retention, forbidden clinical claims, citation validity, and tool-boundary behavior under adversarial prompts.
+- Adds retrieval ablation evaluation over the medical QA set by disabling BM25, embedding, rerank, query expansion, and diverse Top-K selection.
 - Writes JSON and Markdown reports to `eval/reports`.
 
 Latest local M6 result:
@@ -91,6 +92,18 @@ retrieval_traceable_source_rate=100.0%
 patient_tool_sequence_accuracy=100.0%
 safety_tool_boundary_rate=100.0%
 ```
+
+Latest retrieval ablation result:
+
+```text
+full_hybrid Top-K evidence accuracy=100.0%
+full_hybrid Top-1 evidence accuracy=85.0%
+full_hybrid MRR=0.904
+remove_query_expansion Top-1 evidence accuracy=95.0% (+10.0 pp)
+remove_query_expansion MRR=0.967 (+6.3 pp)
+```
+
+Interpretation: the current small evaluation set shows that broad query expansion can dilute ranking quality. This is a useful tuning signal for the next retrieval iteration, not a clinical result.
 
 This is an engineering evaluation of the deterministic prototype, not clinical validation.
 

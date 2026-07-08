@@ -32,3 +32,15 @@ test("hybrid retrieval reports low confidence for unrelated questions", () => {
   assert.equal(result.evidenceSufficient, false);
 });
 
+test("retrieval ablation mode returns comparable cited results", () => {
+  const result = retrieveMedicalEvidence({
+    query: "AFP HCC tumor marker",
+    featureNames: ["afp_ng_ml"],
+    topK: 5,
+    ablationMode: "no_query_expansion",
+  });
+
+  assert.equal(result.retrievalMethod, "ablation:no_query_expansion");
+  assert.equal(result.results.length, 5);
+  assert.ok(result.results.every((hit) => hit.source.url.startsWith("https://")));
+});

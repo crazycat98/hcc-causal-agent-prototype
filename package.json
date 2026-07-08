@@ -1,6 +1,6 @@
 {
   "name": "hcc-causal-agent-prototype",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "description": "Synthetic-data HCC causal Agent prototype for research learning and portfolio demonstration only.",
   "type": "module",

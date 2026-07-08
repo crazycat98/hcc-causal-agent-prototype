@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T08:12:00.900Z",
+  "generatedAt": "2026-07-08T14:06:56.728Z",
   "datasetSizes": {
     "medicalQa": 20,
     "patientCases": 20,
@@ -499,6 +499,3664 @@
         }
       ]
     },
+    "retrievalAblations": [
+      {
+        "mode": "full",
+        "label": "full_hybrid",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 17,
+            "denominator": 20,
+            "value": 0.85
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.0833,
+            "denominator": 20,
+            "value": 0.9042
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 0,
+          "retrieval_mrr": 0,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-LFT-002",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-004",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-002",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-HCC-004",
+              "KB-SAFE-003",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.25,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-003",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.5,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-002",
+              "KB-SIZE-001",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "no_bm25",
+        "label": "remove_bm25",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 18,
+            "denominator": 20,
+            "value": 0.9
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.7,
+            "denominator": 20,
+            "value": 0.935
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 5,
+          "retrieval_mrr": 3.1,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-HCC-005",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-SAFE-001",
+              "KB-LFT-003",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-HCC-002",
+              "KB-RAD-003",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-LFT-002",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-002",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-LFT-002",
+              "KB-HCC-001",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-HCC-004",
+              "KB-RAD-001",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.2,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-LFT-001",
+              "KB-VASC-001",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-RAD-001",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-001",
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-003",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.5,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-SAFE-001",
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "no_embedding",
+        "label": "remove_embedding",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 18,
+            "denominator": 20,
+            "value": 0.9
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.5833,
+            "denominator": 20,
+            "value": 0.9292
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 5,
+          "retrieval_mrr": 2.5,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-HCC-005",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-HCC-003",
+              "KB-PLT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-LFT-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-LFT-004",
+              "KB-PLT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-LFT-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-002",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-HCC-004",
+              "KB-SAFE-003",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.25,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-003",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-HCC-003",
+              "KB-SAFE-001",
+              "KB-SAFE-002",
+              "KB-LFT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-SAFE-001",
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-002",
+              "KB-SIZE-001",
+              "KB-PLT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-002",
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-001",
+              "KB-HCC-002",
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "no_rerank",
+        "label": "remove_rerank",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 17,
+            "denominator": 20,
+            "value": 0.85
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.1666,
+            "denominator": 20,
+            "value": 0.9083
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 0,
+          "retrieval_mrr": 0.4,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-LFT-002",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-PLT-001",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-004",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-003",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-LFT-004",
+              "KB-HCC-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-SAFE-003",
+              "KB-HCC-004",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.5,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-004",
+              "KB-LFT-002",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "no_query_expansion",
+        "label": "remove_query_expansion",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 19,
+            "denominator": 20,
+            "value": 0.95
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 19.3333,
+            "denominator": 20,
+            "value": 0.9667
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 10,
+          "retrieval_mrr": 6.3,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-LFT-004",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-003",
+              "KB-RAD-002",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-VASC-001",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-PLT-001",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-HCC-004",
+              "KB-SAFE-001",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-HCC-003",
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-RAD-004",
+              "KB-SAFE-003",
+              "KB-RAD-001",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "medium"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-001",
+              "KB-RAD-002",
+              "KB-RAD-005",
+              "KB-RAD-004",
+              "KB-VASC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-HCC-003",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-002",
+              "KB-HCC-004",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-HCC-002",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "no_diversity",
+        "label": "remove_diverse_topk",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 17,
+            "denominator": 20,
+            "value": 0.85
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.0833,
+            "denominator": 20,
+            "value": 0.9042
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 0,
+          "retrieval_mrr": 0,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-LFT-002",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-004",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-002",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-RAD-004",
+              "KB-SAFE-003",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.25,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-003",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.5,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-002",
+              "KB-SIZE-001",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "bm25_only",
+        "label": "bm25_only",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 18,
+            "denominator": 20,
+            "value": 0.9
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.5833,
+            "denominator": 20,
+            "value": 0.9292
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 5,
+          "retrieval_mrr": 2.5,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-HCC-005",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-RAD-005",
+              "KB-RAD-003",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-HCC-003",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-PLT-001",
+              "KB-LFT-004"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-LFT-004",
+              "KB-VASC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-005",
+              "KB-LFT-003"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-LFT-004",
+              "KB-HCC-001",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-HCC-004",
+              "KB-SAFE-003",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.25,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003",
+              "KB-LFT-002",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-LFT-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-HCC-003",
+              "KB-SAFE-001",
+              "KB-LFT-002",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-SAFE-001",
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-LFT-004",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-005",
+              "KB-RAD-001",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-PLT-001",
+              "KB-SIZE-001",
+              "KB-SAFE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-HCC-004",
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-002",
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-001",
+              "KB-HCC-002",
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      },
+      {
+        "mode": "embedding_only",
+        "label": "embedding_only",
+        "metrics": [
+          {
+            "name": "retrieval_expected_id_or_low_confidence_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_top1_expected_accuracy",
+            "numerator": 18,
+            "denominator": 20,
+            "value": 0.9
+          },
+          {
+            "name": "retrieval_mrr",
+            "numerator": 18.8333,
+            "denominator": 20,
+            "value": 0.9417
+          },
+          {
+            "name": "retrieval_sufficiency_accuracy",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          },
+          {
+            "name": "retrieval_traceable_source_rate",
+            "numerator": 20,
+            "denominator": 20,
+            "value": 1
+          }
+        ],
+        "deltasFromFullPp": {
+          "retrieval_expected_id_or_low_confidence_accuracy": 0,
+          "retrieval_top1_expected_accuracy": 5,
+          "retrieval_mrr": 3.7,
+          "retrieval_sufficiency_accuracy": 0,
+          "retrieval_traceable_source_rate": 0
+        },
+        "details": [
+          {
+            "id": "qa-001",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-HCC-005",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-002",
+            "retrievedIds": [
+              "KB-VASC-002",
+              "KB-VASC-001",
+              "KB-SAFE-001",
+              "KB-LFT-003",
+              "KB-SAFE-002"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-003",
+            "retrievedIds": [
+              "KB-RAD-003",
+              "KB-RAD-002",
+              "KB-RAD-001",
+              "KB-VASC-002",
+              "KB-RAD-004"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-002",
+              "KB-RAD-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-004",
+            "retrievedIds": [
+              "KB-RAD-004",
+              "KB-RAD-001",
+              "KB-HCC-002",
+              "KB-SAFE-002",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-004",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-005",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002",
+              "KB-LFT-002",
+              "KB-SAFE-002",
+              "KB-RAD-002"
+            ],
+            "expectedAnyIds": [
+              "KB-SIZE-001",
+              "KB-HCC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-006",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-RAD-005",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-007",
+            "retrievedIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001",
+              "KB-HCC-004",
+              "KB-LFT-001",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-003",
+              "KB-SAFE-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-008",
+            "retrievedIds": [
+              "KB-LFT-004",
+              "KB-LFT-001",
+              "KB-SAFE-001",
+              "KB-HCC-003",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-LFT-004",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-009",
+            "retrievedIds": [
+              "KB-PLT-001",
+              "KB-HCC-005",
+              "KB-SAFE-001",
+              "KB-LFT-004",
+              "KB-LFT-002"
+            ],
+            "expectedAnyIds": [
+              "KB-PLT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-010",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-RAD-004",
+              "KB-SAFE-003",
+              "KB-HCC-004",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-003"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.3333,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "medium"
+          },
+          {
+            "id": "qa-011",
+            "retrievedIds": [
+              "KB-HCC-001",
+              "KB-HCC-005",
+              "KB-VASC-001",
+              "KB-RAD-003",
+              "KB-LFT-003"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-001",
+              "KB-HCC-005"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-012",
+            "retrievedIds": [
+              "KB-SAFE-002",
+              "KB-HCC-002",
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-SIZE-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-002",
+              "KB-SAFE-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-013",
+            "retrievedIds": [
+              "KB-RAD-001",
+              "KB-RAD-002",
+              "KB-RAD-004",
+              "KB-RAD-005",
+              "KB-RAD-003"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-014",
+            "retrievedIds": [
+              "KB-HCC-003",
+              "KB-HCC-004",
+              "KB-LFT-004",
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-004",
+              "KB-HCC-003"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-015",
+            "retrievedIds": [
+              "KB-LFT-002",
+              "KB-SAFE-001",
+              "KB-LFT-001",
+              "KB-HCC-004",
+              "KB-HCC-005"
+            ],
+            "expectedAnyIds": [
+              "KB-SAFE-001",
+              "KB-LFT-001"
+            ],
+            "topKHit": true,
+            "top1Correct": false,
+            "reciprocalRank": 0.5,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-016",
+            "retrievedIds": [
+              "KB-RAD-002",
+              "KB-RAD-003",
+              "KB-RAD-001",
+              "KB-VASC-002",
+              "KB-RAD-005"
+            ],
+            "expectedAnyIds": [
+              "KB-RAD-005",
+              "KB-RAD-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-017",
+            "retrievedIds": [
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-SAFE-001",
+              "KB-HCC-003",
+              "KB-HCC-004"
+            ],
+            "expectedAnyIds": [
+              "KB-HCC-005",
+              "KB-HCC-001"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-018",
+            "retrievedIds": [
+              "KB-VASC-001",
+              "KB-VASC-002",
+              "KB-RAD-002",
+              "KB-LFT-002",
+              "KB-RAD-001"
+            ],
+            "expectedAnyIds": [
+              "KB-VASC-001",
+              "KB-VASC-002"
+            ],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": true,
+            "confidence": "high"
+          },
+          {
+            "id": "qa-019",
+            "retrievedIds": [
+              "KB-SIZE-001",
+              "KB-LFT-003",
+              "KB-RAD-004",
+              "KB-HCC-003",
+              "KB-HCC-001"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          },
+          {
+            "id": "qa-020",
+            "retrievedIds": [
+              "KB-HCC-004",
+              "KB-HCC-005",
+              "KB-HCC-001",
+              "KB-HCC-003",
+              "KB-SAFE-003"
+            ],
+            "expectedAnyIds": [],
+            "topKHit": true,
+            "top1Correct": true,
+            "reciprocalRank": 1,
+            "sufficiencyCorrect": true,
+            "traceableSources": true,
+            "evidenceSufficient": false,
+            "confidence": "low"
+          }
+        ]
+      }
+    ],
     "patients": {
       "metrics": [
         {
