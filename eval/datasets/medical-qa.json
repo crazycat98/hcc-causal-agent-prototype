@@ -1,0 +1,142 @@
+[
+  {
+    "id": "qa-001",
+    "query": "AFP 甲胎蛋白在 HCC 背景下如何解释？",
+    "featureNames": ["afp_ng_ml"],
+    "expectedAnyIds": ["KB-HCC-003", "KB-HCC-004"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-002",
+    "query": "门静脉侵犯为什么只能作为背景线索？",
+    "featureNames": ["portal_vein_invasion"],
+    "expectedAnyIds": ["KB-VASC-001", "KB-VASC-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-003",
+    "query": "GLCM contrast 是什么影像组学特征？",
+    "featureNames": ["radiomics_glcm_contrast"],
+    "expectedAnyIds": ["KB-RAD-002", "KB-RAD-003"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-004",
+    "query": "radiomics entropy 如何理解？",
+    "featureNames": ["radiomics_entropy"],
+    "expectedAnyIds": ["KB-RAD-004", "KB-RAD-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-005",
+    "query": "肿瘤大小是否等同于病理分级？",
+    "featureNames": ["tumor_size_cm"],
+    "expectedAnyIds": ["KB-SIZE-001", "KB-HCC-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-006",
+    "query": "ALT AST 与肝功能检查有什么关系？",
+    "featureNames": ["alt_u_l", "ast_u_l"],
+    "expectedAnyIds": ["KB-LFT-001", "KB-LFT-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-007",
+    "query": "胆红素异常应该如何谨慎解释？",
+    "featureNames": ["bilirubin_umol_l"],
+    "expectedAnyIds": ["KB-LFT-003", "KB-SAFE-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-008",
+    "query": "白蛋白在肝功能背景中代表什么？",
+    "featureNames": ["albumin_g_l"],
+    "expectedAnyIds": ["KB-LFT-004", "KB-LFT-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-009",
+    "query": "血小板计数在肝病背景下为何不能过度归因？",
+    "featureNames": ["platelet_10e9_l"],
+    "expectedAnyIds": ["KB-PLT-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-010",
+    "query": "SHAP 解释为什么不等同医学因果机制？",
+    "featureNames": ["radiomics_entropy", "afp_ng_ml"],
+    "expectedAnyIds": ["KB-SAFE-003"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-011",
+    "query": "肝细胞癌 HCC 的公开词典定义是什么？",
+    "featureNames": [],
+    "expectedAnyIds": ["KB-HCC-001", "KB-HCC-005"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-012",
+    "query": "病理分级和模型概率的区别是什么？",
+    "featureNames": [],
+    "expectedAnyIds": ["KB-HCC-002", "KB-SAFE-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-013",
+    "query": "影像组学特征受哪些预处理影响？",
+    "featureNames": ["radiomics_entropy", "radiomics_glcm_contrast"],
+    "expectedAnyIds": ["KB-RAD-005", "KB-RAD-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-014",
+    "query": "AFP 检测能否单独诊断 HCC？",
+    "featureNames": ["afp_ng_ml"],
+    "expectedAnyIds": ["KB-HCC-004", "KB-HCC-003"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-015",
+    "query": "肝功能检查能否单独诊断具体疾病？",
+    "featureNames": ["alt_u_l", "ast_u_l", "albumin_g_l"],
+    "expectedAnyIds": ["KB-SAFE-001", "KB-LFT-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-016",
+    "query": "GLCM 特征依赖 ROI 和离散化吗？",
+    "featureNames": ["radiomics_glcm_contrast"],
+    "expectedAnyIds": ["KB-RAD-005", "KB-RAD-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-017",
+    "query": "慢性肝病背景和 HCC 风险有什么公开科普信息？",
+    "featureNames": [],
+    "expectedAnyIds": ["KB-HCC-005", "KB-HCC-001"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-018",
+    "query": "门静脉相关描述为什么需要区分血栓和肿瘤侵犯？",
+    "featureNames": ["portal_vein_invasion"],
+    "expectedAnyIds": ["KB-VASC-001", "KB-VASC-002"],
+    "expectSufficient": true
+  },
+  {
+    "id": "qa-019",
+    "query": "spacecraft propulsion orchid taxonomy",
+    "featureNames": [],
+    "expectedAnyIds": [],
+    "expectSufficient": false
+  },
+  {
+    "id": "qa-020",
+    "query": "random unrelated culinary guitar chord question",
+    "featureNames": [],
+    "expectedAnyIds": [],
+    "expectSufficient": false
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "selected_features": [
+    "tumor_size_cm",
+    "afp_ng_ml",
+    "alt_u_l",
+    "ast_u_l",
+    "bilirubin_umol_l",
+    "albumin_g_l",
+    "platelet_10e9_l",
+    "portal_vein_invasion",
+    "radiomics_entropy",
+    "radiomics_glcm_contrast"
+  ],
+  "feature_selection": {
+    "method": "simulated_fci_fixed_causal_candidates",
+    "selected_features": [
+      "tumor_size_cm",
+      "afp_ng_ml",
+      "alt_u_l",
+      "ast_u_l",
+      "bilirubin_umol_l",
+      "albumin_g_l",
+      "platelet_10e9_l",
+      "portal_vein_invasion",
+      "radiomics_entropy",
+      "radiomics_glcm_contrast"
+    ],
+    "notes": "Prototype simplification: this list simulates FCI-selected causal candidate variables over synthetic data."
+  },
+  "metrics": {
+    "cv_auc_mean": 0.8283638874928736,
+    "cv_auc_std": 0.01667421275941323,
+    "cv_auc_scores": [
+      0.8478618421052632,
+      0.8091277786334001,
+      0.8154422711638174,
+      0.8206786796036758,
+      0.8487088659582114
+    ],
+    "train_auc": 0.991724588386079,
+    "positive_rate": 0.54,
+    "n_samples": 1400,
+    "n_splits": 5
+  },
+  "safety_notice": "演示用合成数据，非真实患者数据；非临床诊断依据。",
+  "config": {
+    "n_samples": 1400,
+    "random_state": 42,
+    "n_splits": 5
+  }
+}

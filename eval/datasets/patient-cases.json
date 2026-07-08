@@ -1,0 +1,152 @@
+[
+  {
+    "id": "case-001",
+    "sessionId": "eval-case-001",
+    "patientId": "eval-patient-001",
+    "features": {"tumor_size_cm": 6.2, "afp_ng_ml": 420, "alt_u_l": 61, "ast_u_l": 72, "bilirubin_umol_l": 24, "albumin_g_l": 36, "platelet_10e9_l": 128, "portal_vein_invasion": 1, "radiomics_entropy": 5.4, "radiomics_glcm_contrast": 112},
+    "expectComplete": true,
+    "expectRevisitTrend": false
+  },
+  {
+    "id": "case-002",
+    "sessionId": "eval-case-002",
+    "patientId": "eval-patient-001",
+    "features": {"tumor_size_cm": 7.1, "afp_ng_ml": 620, "alt_u_l": 70, "ast_u_l": 82, "bilirubin_umol_l": 28, "albumin_g_l": 34, "platelet_10e9_l": 118, "portal_vein_invasion": 1, "radiomics_entropy": 5.9, "radiomics_glcm_contrast": 130},
+    "expectComplete": true,
+    "expectRevisitTrend": true
+  },
+  {
+    "id": "case-003",
+    "sessionId": "eval-case-003",
+    "patientId": "eval-patient-003",
+    "features": {"tumor_size_cm": 4.4, "afp_ng_ml": 90, "alt_u_l": 38, "ast_u_l": 42, "bilirubin_umol_l": 14, "albumin_g_l": 42, "platelet_10e9_l": 188, "portal_vein_invasion": 0, "radiomics_entropy": 4.7, "radiomics_glcm_contrast": 82},
+    "expectComplete": true,
+    "expectUncertain": true
+  },
+  {
+    "id": "case-004",
+    "sessionId": "eval-case-004",
+    "patientId": "eval-patient-004",
+    "features": {"tumor_size_cm": 2.9, "afp_ng_ml": 35, "alt_u_l": 30, "ast_u_l": 33, "bilirubin_umol_l": 11, "albumin_g_l": 45, "platelet_10e9_l": 210, "portal_vein_invasion": 0, "radiomics_entropy": 4.1, "radiomics_glcm_contrast": 65},
+    "expectComplete": true
+  },
+  {
+    "id": "case-005",
+    "sessionId": "eval-case-005",
+    "patientId": "eval-patient-005",
+    "features": {"tumor_size_cm": 8.4, "afp_ng_ml": 1800, "alt_u_l": 88, "ast_u_l": 96, "bilirubin_umol_l": 31, "albumin_g_l": 32, "platelet_10e9_l": 92, "portal_vein_invasion": 1, "radiomics_entropy": 6.2, "radiomics_glcm_contrast": 155},
+    "expectComplete": true
+  },
+  {
+    "id": "case-006",
+    "sessionId": "eval-case-006",
+    "patientId": "eval-patient-006",
+    "features": {"tumor_size_cm": 5.1, "afp_ng_ml": 260, "alt_u_l": 49, "ast_u_l": 53, "bilirubin_umol_l": 17, "albumin_g_l": 39, "platelet_10e9_l": 150, "portal_vein_invasion": 0, "radiomics_entropy": 5.0, "radiomics_glcm_contrast": 94},
+    "expectComplete": true
+  },
+  {
+    "id": "case-007",
+    "sessionId": "eval-case-007",
+    "patientId": "eval-patient-007",
+    "features": {"tumor_size_cm": 6.8, "afp_ng_ml": 510, "alt_u_l": 62, "ast_u_l": 68, "bilirubin_umol_l": 20, "albumin_g_l": 37, "platelet_10e9_l": 136, "portal_vein_invasion": 0, "radiomics_entropy": 5.8, "radiomics_glcm_contrast": 122},
+    "expectComplete": true
+  },
+  {
+    "id": "case-008",
+    "sessionId": "eval-case-008",
+    "patientId": "eval-patient-008",
+    "features": {"tumor_size_cm": 3.8, "afp_ng_ml": 110, "alt_u_l": 42, "ast_u_l": 44, "bilirubin_umol_l": 13, "albumin_g_l": 43, "platelet_10e9_l": 176, "portal_vein_invasion": 0, "radiomics_entropy": 4.5, "radiomics_glcm_contrast": 78},
+    "expectComplete": true
+  },
+  {
+    "id": "case-009",
+    "sessionId": "eval-case-009",
+    "patientId": "eval-patient-009",
+    "features": {"tumor_size_cm": 9.0, "afp_ng_ml": 2400, "alt_u_l": 102, "ast_u_l": 118, "bilirubin_umol_l": 35, "albumin_g_l": 31, "platelet_10e9_l": 84, "portal_vein_invasion": 1, "radiomics_entropy": 6.6, "radiomics_glcm_contrast": 174},
+    "expectComplete": true
+  },
+  {
+    "id": "case-010",
+    "sessionId": "eval-case-010",
+    "patientId": "eval-patient-010",
+    "features": {"tumor_size_cm": 4.7, "afp_ng_ml": 155, "alt_u_l": 45, "ast_u_l": 47, "bilirubin_umol_l": 16, "albumin_g_l": 41, "platelet_10e9_l": 164, "portal_vein_invasion": 0, "radiomics_entropy": 4.9, "radiomics_glcm_contrast": 88},
+    "expectComplete": true,
+    "expectUncertain": true
+  },
+  {
+    "id": "case-011",
+    "sessionId": "eval-case-011",
+    "patientId": "eval-patient-011",
+    "features": {"tumor_size_cm": 6.0, "afp_ng_ml": 340, "alt_u_l": 55, "ast_u_l": 60, "bilirubin_umol_l": 19, "albumin_g_l": 38, "platelet_10e9_l": 142, "portal_vein_invasion": 1, "radiomics_entropy": 5.2, "radiomics_glcm_contrast": 106},
+    "expectComplete": true
+  },
+  {
+    "id": "case-012",
+    "sessionId": "eval-case-012",
+    "patientId": "eval-patient-012",
+    "features": {"tumor_size_cm": 5.4, "afp_ng_ml": 280, "alt_u_l": 52, "ast_u_l": 57, "bilirubin_umol_l": 21, "albumin_g_l": 37, "platelet_10e9_l": 132, "portal_vein_invasion": 0, "radiomics_entropy": 5.1, "radiomics_glcm_contrast": 102},
+    "expectComplete": true
+  },
+  {
+    "id": "case-013",
+    "sessionId": "eval-case-013",
+    "patientId": "eval-patient-013",
+    "features": {"tumor_size_cm": 3.2, "afp_ng_ml": 70, "alt_u_l": 34, "ast_u_l": 36, "bilirubin_umol_l": 12, "albumin_g_l": 44, "platelet_10e9_l": 196, "portal_vein_invasion": 0, "radiomics_entropy": 4.2, "radiomics_glcm_contrast": 70},
+    "expectComplete": true
+  },
+  {
+    "id": "case-014",
+    "sessionId": "eval-case-014",
+    "patientId": "eval-patient-014",
+    "features": {"tumor_size_cm": 7.5, "afp_ng_ml": 980, "alt_u_l": 76, "ast_u_l": 89, "bilirubin_umol_l": 27, "albumin_g_l": 35, "platelet_10e9_l": 122, "portal_vein_invasion": 1, "radiomics_entropy": 6.0, "radiomics_glcm_contrast": 144},
+    "expectComplete": true
+  },
+  {
+    "id": "case-015",
+    "sessionId": "eval-case-015",
+    "patientId": "eval-patient-015",
+    "features": {"tumor_size_cm": 4.9, "afp_ng_ml": 210, "alt_u_l": 48, "ast_u_l": 51, "bilirubin_umol_l": 18, "albumin_g_l": 40, "platelet_10e9_l": 158, "portal_vein_invasion": 0, "radiomics_entropy": 4.9, "radiomics_glcm_contrast": 90},
+    "expectComplete": true,
+    "expectUncertain": true
+  },
+  {
+    "id": "case-016",
+    "sessionId": "eval-case-016",
+    "patientId": "eval-patient-016",
+    "features": {"tumor_size_cm": 6.2, "afp_ng_ml": 420},
+    "expectComplete": false,
+    "expectedMissing": ["alt_u_l", "ast_u_l", "bilirubin_umol_l", "albumin_g_l", "platelet_10e9_l", "portal_vein_invasion", "radiomics_entropy", "radiomics_glcm_contrast"]
+  },
+  {
+    "id": "case-017",
+    "sessionId": "eval-case-017",
+    "patientId": "eval-patient-017",
+    "features": {"tumor_size_cm": 3.2, "afp_ng_ml": 70, "alt_u_l": 34, "ast_u_l": 36, "bilirubin_umol_l": 12},
+    "expectComplete": false,
+    "expectedMissing": ["albumin_g_l", "platelet_10e9_l", "portal_vein_invasion", "radiomics_entropy", "radiomics_glcm_contrast"]
+  },
+  {
+    "id": "case-018",
+    "sessionId": "eval-case-018",
+    "patientId": "eval-patient-018",
+    "features": {"tumor_size_cm": 4.9, "afp_ng_ml": 210, "alt_u_l": 48, "ast_u_l": 51, "bilirubin_umol_l": 18, "albumin_g_l": 40, "platelet_10e9_l": 158},
+    "expectComplete": false,
+    "expectedMissing": ["portal_vein_invasion", "radiomics_entropy", "radiomics_glcm_contrast"]
+  },
+  {
+    "id": "case-019",
+    "sessionId": "eval-case-019",
+    "patientId": "eval-patient-019",
+    "features": {"tumor_size_cm": 7.5, "afp_ng_ml": 980, "alt_u_l": 76, "ast_u_l": 89, "bilirubin_umol_l": 27, "albumin_g_l": 35, "platelet_10e9_l": 122, "portal_vein_invasion": 1},
+    "expectComplete": false,
+    "expectedMissing": ["radiomics_entropy", "radiomics_glcm_contrast"]
+  },
+  {
+    "id": "case-020",
+    "sessionId": "eval-case-020",
+    "patientId": "eval-patient-020",
+    "features": {"tumor_size_cm": 5.4, "afp_ng_ml": 280, "alt_u_l": 52, "ast_u_l": 57, "bilirubin_umol_l": 21, "albumin_g_l": 37, "platelet_10e9_l": 132, "portal_vein_invasion": 0, "radiomics_entropy": 5.1},
+    "expectComplete": false,
+    "expectedMissing": ["radiomics_glcm_contrast"]
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "name": "hcc-causal-agent-prototype",
+  "version": "0.7.0",
+  "private": true,
+  "description": "Synthetic-data HCC causal Agent prototype for research learning and portfolio demonstration only.",
+  "type": "module",
+  "scripts": {
+    "m1:train": "python ml-service/scripts/train_model.py",
+    "m1:serve": "python ml-service/scripts/run_server.py",
+    "m2:demo": "tsx agent/src/demo.ts",
+    "m3:demo": "tsx agent/src/demo.ts",
+    "m4:demo": "tsx agent/src/demo.ts",
+    "m5:demo": "tsx agent/src/demo.ts",
+    "m7:dev": "next dev web --webpack --hostname 127.0.0.1 --port 3000",
+    "web:dev": "next dev web --webpack --hostname 127.0.0.1 --port 3000",
+    "web:build": "next build web --webpack",
+    "web:typecheck": "tsc -p web/tsconfig.json --noEmit",
+    "eval": "tsx eval/run-eval.ts",
+    "test": "tsx --test agent/tests/*.test.ts retrieval/tests/*.test.ts web/tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "ai": "^7.0.16",
+    "autoprefixer": "^10.5.2",
+    "lucide-react": "^1.23.0",
+    "next": "^16.2.10",
+    "postcss": "^8.5.16",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
+  }
+}

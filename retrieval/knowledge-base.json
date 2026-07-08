@@ -1,0 +1,233 @@
+[
+  {
+    "id": "KB-HCC-001",
+    "title": "HCC 基本概念",
+    "terms": ["hcc", "hepatocellular carcinoma", "肝细胞癌", "肝癌", "hepatocyte"],
+    "text": "肝细胞癌是发生在肝细胞中的原发性肝癌类型。公开科普资料通常将慢性乙肝、丙肝、脂肪性肝炎、长期酒精相关肝病和肝硬化列为常见风险背景。",
+    "source": {
+      "label": "NCI Dictionary: hepatocellular carcinoma",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/hepatocellular-carcinoma",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-HCC-002",
+    "title": "病理分级的含义",
+    "terms": ["tumor grade", "pathology grade", "histologic grade", "病理分级", "分化", "grade"],
+    "text": "肿瘤分级描述显微镜下肿瘤细胞和组织与正常组织的差异程度，以及肿瘤可能生长和扩散的速度。它不是单一化验值，而是病理评估概念。",
+    "source": {
+      "label": "NCI Dictionary: tumor grade",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/tumor-grade",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-HCC-003",
+    "title": "AFP 肿瘤标志物",
+    "terms": ["afp", "alpha-fetoprotein", "afp_ng_ml", "甲胎蛋白", "tumor marker"],
+    "text": "AFP 是甲胎蛋白。公开医学词典将成人血液中 AFP 升高描述为可能提示原发性肝癌或生殖细胞肿瘤的线索，但 AFP 不能单独完成诊断。",
+    "source": {
+      "label": "NCI Dictionary: alpha-fetoprotein",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/alpha-fetoprotein",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-HCC-004",
+    "title": "AFP 检测的解释边界",
+    "terms": ["afp", "alpha-fetoprotein", "afp_ng_ml", "甲胎蛋白", "marker limitation"],
+    "text": "AFP 肿瘤标志物检测可以用于辅助评估某些肿瘤相关问题，但异常结果需要结合影像、病理、病史和其他检查。原型报告不应把 AFP 单独解释为诊断结论。",
+    "source": {
+      "label": "MedlinePlus: Alpha Fetoprotein Tumor Marker Test",
+      "url": "https://medlineplus.gov/lab-tests/alpha-fetoprotein-afp-tumor-marker-test/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-LFT-001",
+    "title": "肝功能检测总览",
+    "terms": ["liver function", "lft", "alt", "ast", "bilirubin", "albumin", "肝功能"],
+    "text": "肝功能检测通常用血液样本测量多种由肝脏产生、处理或相关的物质，包括白蛋白、胆红素、ALT、AST 等。异常模式需要由临床人员结合上下文解释。",
+    "source": {
+      "label": "MedlinePlus: Liver Function Tests",
+      "url": "https://medlineplus.gov/lab-tests/liver-function-tests/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-LFT-002",
+    "title": "ALT 与 AST",
+    "terms": ["alt", "ast", "alt_u_l", "ast_u_l", "alanine transaminase", "aspartate aminotransferase", "转氨酶"],
+    "text": "ALT 和 AST 是常见肝功能相关酶指标。公开资料将它们列为肝功能检测中的常见项目，可反映肝脏损伤或炎症线索，但不能单独判定肿瘤分级。",
+    "source": {
+      "label": "MedlinePlus: Liver Function Tests",
+      "url": "https://medlineplus.gov/lab-tests/liver-function-tests/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-LFT-003",
+    "title": "胆红素",
+    "terms": ["bilirubin", "bilirubin_umol_l", "胆红素", "jaundice"],
+    "text": "胆红素是红细胞分解后产生并由肝脏处理的物质。胆红素异常常用于提示肝胆代谢或排泄问题，但原型中只能作为模型输入和背景解释线索。",
+    "source": {
+      "label": "MedlinePlus: Bilirubin Blood Test",
+      "url": "https://medlineplus.gov/lab-tests/bilirubin-blood-test/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-LFT-004",
+    "title": "白蛋白",
+    "terms": ["albumin", "albumin_g_l", "白蛋白", "liver synthesis"],
+    "text": "白蛋白是肝脏产生的重要血浆蛋白。白蛋白水平可反映营养、炎症或肝脏合成功能等多种因素，不能被单独解释为肿瘤分级依据。",
+    "source": {
+      "label": "MedlinePlus: Albumin Blood Test",
+      "url": "https://medlineplus.gov/lab-tests/albumin-blood-test/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-PLT-001",
+    "title": "血小板计数",
+    "terms": ["platelet", "platelet_10e9_l", "血小板", "thrombocyte", "platelet count"],
+    "text": "血小板参与凝血，血小板计数用于评估出血或凝血相关风险。肝病背景下血小板变化可能与多种因素有关，报告应避免过度归因。",
+    "source": {
+      "label": "MedlinePlus: Platelet Tests",
+      "url": "https://medlineplus.gov/lab-tests/platelet-tests/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-VASC-001",
+    "title": "门静脉",
+    "terms": ["portal vein", "portal_vein_invasion", "门静脉", "vascular invasion"],
+    "text": "门静脉是将来自胃肠道等部位的血液送入肝脏的重要血管。涉及门静脉的影像或病理描述需要谨慎区分血栓、受压和肿瘤侵犯等情形。",
+    "source": {
+      "label": "NCI Dictionary: portal vein",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/portal-vein",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-VASC-002",
+    "title": "门静脉受侵的解释边界",
+    "terms": ["portal vein invasion", "portal_vein_invasion", "vascular invasion", "门静脉侵犯", "肿瘤侵犯"],
+    "text": "门静脉受侵在肝癌评估中常被视为重要的侵袭性线索，但确认受侵需要影像、病理或临床上下文支持。本原型只把它作为合成二元特征。",
+    "source": {
+      "label": "NCI Dictionary: portal vein",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/portal-vein",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-SIZE-001",
+    "title": "肿瘤大小",
+    "terms": ["tumor size", "tumor_size_cm", "diameter", "lesion size", "肿瘤大小", "直径"],
+    "text": "肿瘤大小通常描述病灶的空间尺度。它可作为影像或病理报告中的重要结构化信息，但大小本身不等同于病理分级。",
+    "source": {
+      "label": "NCI Dictionary: tumor grade",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/tumor-grade",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-RAD-001",
+    "title": "影像组学特征族",
+    "terms": ["radiomics", "image feature", "texture", "影像组学", "纹理"],
+    "text": "IBSI 文档将影像特征分为形态、局部强度、强度统计、直方图、强度-体积直方图和纹理矩阵等多个家族。原型中的 radiomics 特征属于演示用合成数值。",
+    "source": {
+      "label": "IBSI: Image features",
+      "url": "https://ibsi.readthedocs.io/en/latest/03_Image_features.html",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-RAD-002",
+    "title": "GLCM 纹理矩阵",
+    "terms": ["glcm", "grey level co-occurrence", "radiomics_glcm_contrast", "contrast", "灰度共生矩阵"],
+    "text": "GLCM 是灰度共生矩阵，用于描述图像中不同灰度值在空间邻域内共同出现的模式。GLCM 特征常用于量化纹理，但结果依赖分割、离散化和预处理。",
+    "source": {
+      "label": "IBSI: Grey level co-occurrence based features",
+      "url": "https://ibsi.readthedocs.io/en/latest/03_Image_features.html#grey-level-co-occurrence-based-features",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-RAD-003",
+    "title": "GLCM Contrast",
+    "terms": ["glcm contrast", "radiomics_glcm_contrast", "contrast", "纹理对比度"],
+    "text": "GLCM contrast 类特征用于表达邻近灰度差异带来的纹理对比。较高数值通常提示图像灰度变化更明显，但不能直接等同于某种病理机制。",
+    "source": {
+      "label": "PyRadiomics: Radiomic Features",
+      "url": "https://pyradiomics.readthedocs.io/en/latest/features.html",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-RAD-004",
+    "title": "Entropy 与不确定性",
+    "terms": ["entropy", "radiomics_entropy", "joint entropy", "熵", "heterogeneity"],
+    "text": "影像组学中的 entropy 类特征常用于描述灰度分布或纹理模式的不确定性与复杂度。它是图像统计特征，不应被直接解释为真实组织学异质性结论。",
+    "source": {
+      "label": "IBSI: Image features",
+      "url": "https://ibsi.readthedocs.io/en/latest/03_Image_features.html",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-RAD-005",
+    "title": "影像组学预处理依赖",
+    "terms": ["radiomics", "segmentation", "discretisation", "roi", "影像组学", "分割", "离散化"],
+    "text": "影像组学特征会受到 ROI 分割、灰度离散化、距离定义、特征聚合等处理步骤影响。因此原型报告只能把 radiomics 特征解释为模型输入贡献。",
+    "source": {
+      "label": "IBSI: Image features",
+      "url": "https://ibsi.readthedocs.io/en/latest/03_Image_features.html",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-SAFE-001",
+    "title": "肝功能检查不能单独诊断",
+    "terms": ["liver function", "diagnosis limitation", "alt", "ast", "bilirubin", "albumin", "clinical context"],
+    "text": "公开患者教育资料强调，肝功能检测可提示肝脏工作状态或损伤线索，但单靠这些检测通常不能诊断具体疾病；异常结果需要进一步检查和专业解释。",
+    "source": {
+      "label": "MedlinePlus: Liver Function Tests",
+      "url": "https://medlineplus.gov/lab-tests/liver-function-tests/",
+      "type": "public_health"
+    }
+  },
+  {
+    "id": "KB-SAFE-002",
+    "title": "病理分级不是模型概率",
+    "terms": ["tumor grade", "model probability", "pathology grade", "病理分级", "模型概率"],
+    "text": "病理分级是显微镜下组织学判断；模型概率只是本原型 Random Forest 对合成输入的分类输出。两者不能混同，更不能替代病理诊断。",
+    "source": {
+      "label": "NCI Dictionary: tumor grade",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/tumor-grade",
+      "type": "public_dictionary"
+    }
+  },
+  {
+    "id": "KB-SAFE-003",
+    "title": "特征解释的医学边界",
+    "terms": ["shap", "explanation", "causal", "interpretation", "解释", "因果"],
+    "text": "SHAP 说明的是模型内部对预测的贡献分解，不等于真实医学因果效应。将 SHAP 与候选因果特征交叉，只能提高解释线索的可信度，不能证明机制。",
+    "source": {
+      "label": "IBSI: Image features",
+      "url": "https://ibsi.readthedocs.io/en/latest/03_Image_features.html",
+      "type": "public_technical_docs"
+    }
+  },
+  {
+    "id": "KB-HCC-005",
+    "title": "HCC 与慢性肝病背景",
+    "terms": ["hcc", "cirrhosis", "hepatitis", "chronic liver disease", "肝硬化", "肝炎"],
+    "text": "公开癌症词典将慢性乙肝、丙肝、脂肪性肝炎、长期酒精相关肝病和肝硬化列为 HCC 风险背景。本原型不会采集真实病史，只用于解释背景词义。",
+    "source": {
+      "label": "NCI Dictionary: hepatocellular carcinoma",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/hepatocellular-carcinoma",
+      "type": "public_dictionary"
+    }
+  }
+]
