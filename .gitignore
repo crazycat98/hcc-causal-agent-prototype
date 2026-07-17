@@ -10,5 +10,8 @@ node_modules/
 *.log
 dist/
 build/
+.opencode-scratch/
+tools/opencode-runtime-lab/.opencode/plugin-events.jsonl
+tools/opencode-runtime-lab/mcp-events.jsonl
 memory/data/*.json
 !memory/data/.gitkeep

@@ -14,6 +14,11 @@ import {
 } from "../retrieval/src/search.js";
 import { runHccAgent } from "../agent/src/runner.js";
 import { hccFeatureSchema, type HccFeatures } from "../agent/src/features.js";
+import {
+  runHccDeepReasonWorkflow,
+  type HccDeepReasonWorkflowResult,
+  type HccRequiredClaim,
+} from "../agent/src/deepreason/index.js";
 
 type MedicalQaCase = {
   id: string;
@@ -63,6 +68,50 @@ type RetrievalAblationVariant = {
     evidenceSufficient: boolean;
     confidence: string;
   }>;
+};
+
+type DeepReasonEvalDetail = {
+  id: string;
+  expectComplete: boolean;
+  finishReason: string;
+  gateStatus?: string;
+  memoryProposalStatus?: string;
+  workflowNodeCount: number;
+  runtimeMs: number;
+  toolNames: string[];
+  toolBoundaryCorrect: boolean;
+  claimCoverageCorrect: boolean;
+  sourceVerificationCorrect: boolean;
+  gateDecisionCorrect: boolean;
+  memoryProposalCorrect: boolean;
+  verificationCorrect: boolean;
+  legacyParityCorrect: boolean;
+  disclaimerRetained: boolean;
+};
+
+type DeepReasonRetryDetail = {
+  id: string;
+  retryCount: number;
+  gateStatus?: string;
+  deniedClaimIds: string[];
+  evidenceGaps: string[];
+  passed: boolean;
+};
+
+type DeepReasonEvaluation = {
+  metrics: EvalMetric[];
+  diagnostics: {
+    evaluatedCases: number;
+    completeCases: number;
+    missingFeatureCases: number;
+    averageWorkflowNodeCount: number;
+    averageRuntimeMs: number;
+    averageAgentTraceCount: number;
+    gateStatusCounts: Record<string, number>;
+    memoryProposalStatusCounts: Record<string, number>;
+  };
+  details: DeepReasonEvalDetail[];
+  retryStress: DeepReasonRetryDetail;
 };
 
 const retrievalAblationModes: RetrievalAblationMode[] = [
@@ -621,6 +670,328 @@ async function evaluateSafetyCases(
   };
 }
 
+function includesInOrder(values: string[], expected: string[]): boolean {
+  let cursor = 0;
+  for (const value of values) {
+    if (value === expected[cursor]) {
+      cursor += 1;
+    }
+    if (cursor === expected.length) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function legacyToolOutput<T = unknown>(
+  result: Awaited<ReturnType<typeof runHccAgent>>,
+  toolName: string,
+): T | undefined {
+  return result.toolResults.find((item) => item.toolName === toolName)?.output as
+    | T
+    | undefined;
+}
+
+function average(values: number[]): number {
+  if (values.length === 0) {
+    return 0;
+  }
+  return Number(
+    (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(3),
+  );
+}
+
+function countBy(values: string[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const value of values) {
+    counts[value] = (counts[value] ?? 0) + 1;
+  }
+  return counts;
+}
+
+function deepReasonToolBoundaryCorrect(
+  result: HccDeepReasonWorkflowResult,
+  expectComplete: boolean,
+): boolean {
+  const toolNames = result.toolCalls.map((call) => call.toolName);
+  if (!expectComplete) {
+    return (
+      result.finishReason === "clarification_required" &&
+      toolNames.length === 1 &&
+      toolNames[0] === "checkFeatureCompleteness" &&
+      !toolNames.includes("predictHccGrade") &&
+      !toolNames.includes("createMemoryProposal")
+    );
+  }
+
+  const expectedOrder = [
+    "checkFeatureCompleteness",
+    "getPatientHistory",
+    "predictHccGrade",
+    "explainPredictionWithShap",
+    "retrieveMedicalEvidence",
+    "checkClaims",
+    "verifyEvidenceSources",
+    "evaluateMedicalConfidenceGate",
+    "generateHccReport",
+    "createMemoryProposal",
+  ];
+
+  return (
+    includesInOrder(toolNames, expectedOrder) &&
+    !toolNames.includes("saveCaseMemory") &&
+    result.analysis.prediction !== undefined &&
+    result.analysis.explanation !== undefined &&
+    result.analysis.evidence !== undefined
+  );
+}
+
+function deepReasonLegacyParityCorrect(options: {
+  legacy: Awaited<ReturnType<typeof runHccAgent>>;
+  deepReason: HccDeepReasonWorkflowResult;
+  expectComplete: boolean;
+}): boolean {
+  const legacyToolNames = options.legacy.toolCalls.map((call) => call.toolName);
+  if (!options.expectComplete) {
+    return (
+      options.legacy.text.includes("缺少以下合成特征") &&
+      options.deepReason.finishReason === "clarification_required" &&
+      legacyToolNames.length === 1 &&
+      options.deepReason.toolCalls.length === 1
+    );
+  }
+
+  const legacyPrediction = legacyToolOutput<{
+    prediction?: { label?: string };
+  }>(options.legacy, "predictHccGrade");
+  return (
+    legacyToolNames.includes("predictHccGrade") &&
+    legacyToolNames.includes("explainPredictionWithShap") &&
+    legacyToolNames.includes("retrieveMedicalEvidence") &&
+    options.deepReason.analysis.prediction?.prediction.label ===
+      legacyPrediction?.prediction?.label &&
+    Boolean(options.deepReason.analysis.explanation) &&
+    Boolean(options.deepReason.analysis.evidence) &&
+    options.legacy.text.includes("免责声明") &&
+    options.deepReason.text.includes("免责声明")
+  );
+}
+
+const forcedUnsupportedClaims: HccRequiredClaim[] = [
+  {
+    claimId: "claim-model-output",
+    claim: "Prediction output is available from the RF tool.",
+    claimType: "model_output",
+    requiredSourceTypes: ["model_prediction"],
+    requiredTerms: [],
+    minEvidence: 1,
+    confidenceThreshold: 1,
+  },
+  {
+    claimId: "claim-shap-explanation",
+    claim: "SHAP explanation output is available from the SHAP tool.",
+    claimType: "model_explanation",
+    requiredSourceTypes: ["model_explanation"],
+    requiredTerms: [],
+    minEvidence: 1,
+    confidenceThreshold: 1,
+  },
+  {
+    claimId: "claim-forced-evidence-gap",
+    claim:
+      "A deliberately nonexistent HCC marker has traceable public background evidence.",
+    claimType: "medical_background",
+    requiredSourceTypes: ["knowledge_base"],
+    requiredTerms: ["zzzx_nonexistent_hcc_marker"],
+    minEvidence: 1,
+    confidenceThreshold: 0.25,
+  },
+];
+
+async function evaluateDeepReasonRuntime(
+  cases: PatientCase[],
+  endpoints: { predictionEndpoint: string; explanationEndpoint: string },
+): Promise<DeepReasonEvaluation> {
+  const legacyMemoryDir = mkdtempSync(join(tmpdir(), "hcc-eval-legacy-parity-"));
+  const deepReasonMemoryDir = mkdtempSync(
+    join(tmpdir(), "hcc-eval-deepreason-memory-"),
+  );
+  const details: DeepReasonEvalDetail[] = [];
+
+  for (const item of cases) {
+    const legacy = await runHccAgent({
+      sessionId: `legacy-${item.sessionId}`,
+      patientId: item.patientId,
+      features: item.features,
+      memoryDir: legacyMemoryDir,
+      ...endpoints,
+    });
+    const started = performance.now();
+    const deepReason = await runHccDeepReasonWorkflow({
+      sessionId: `deepreason-${item.sessionId}`,
+      patientId: item.patientId,
+      features: item.features,
+      memoryDir: deepReasonMemoryDir,
+      ...endpoints,
+    });
+    const runtimeMs = Number((performance.now() - started).toFixed(3));
+    const gateStatus = deepReason.deepreason.gateDecision?.status;
+    const memoryProposalStatus =
+      deepReason.deepreason.memoryProposal?.status;
+    const isComplete = item.expectComplete;
+    const toolNames = deepReason.toolCalls.map((call) => call.toolName);
+    const toolBoundaryCorrect = deepReasonToolBoundaryCorrect(
+      deepReason,
+      isComplete,
+    );
+    const claimCoverageCorrect = isComplete
+      ? deepReason.claim_evidence_map.length > 0 &&
+        deepReason.claim_evidence_map.every(
+          (claim) => claim.supportStatus === "supported",
+        )
+      : deepReason.claim_evidence_map.length === 0;
+    const sourceVerificationCorrect = isComplete
+      ? deepReason.source_verification?.valid === true
+      : deepReason.source_verification === undefined;
+    const gateDecisionCorrect = isComplete
+      ? gateStatus === "allow"
+      : deepReason.finishReason === "clarification_required" &&
+        deepReason.gate_decisions.length === 0;
+    const memoryProposalCorrect = isComplete
+      ? memoryProposalStatus === "pending_approval" &&
+        deepReason.deepreason.memoryProposal?.applied === false &&
+        !toolNames.includes("saveCaseMemory")
+      : deepReason.deepreason.memoryProposal === undefined;
+    const verificationCorrect = isComplete
+      ? deepReason.verification_result.passed
+      : deepReason.verification_result.status === "skipped";
+    const legacyParityCorrect = deepReasonLegacyParityCorrect({
+      legacy,
+      deepReason,
+      expectComplete: isComplete,
+    });
+    const disclaimerRetained =
+      deepReason.text.includes("演示用合成数据") &&
+      deepReason.text.includes("免责声明") &&
+      deepReason.disclaimer.includes("不作为任何临床诊断");
+
+    details.push({
+      id: item.id,
+      expectComplete: isComplete,
+      finishReason: deepReason.finishReason,
+      gateStatus,
+      memoryProposalStatus,
+      workflowNodeCount: deepReason.workflow_trace.length,
+      runtimeMs,
+      toolNames,
+      toolBoundaryCorrect,
+      claimCoverageCorrect,
+      sourceVerificationCorrect,
+      gateDecisionCorrect,
+      memoryProposalCorrect,
+      verificationCorrect,
+      legacyParityCorrect,
+      disclaimerRetained,
+    });
+  }
+
+  const retryResult = await runHccDeepReasonWorkflow({
+    sessionId: "deepreason-forced-retry",
+    patientId: "deepreason-forced-retry",
+    features: standardFeatures,
+    memoryDir: mkdtempSync(join(tmpdir(), "hcc-eval-deepreason-retry-")),
+    requiredClaims: forcedUnsupportedClaims,
+    maxEvidenceRetry: 2,
+    ...endpoints,
+  });
+  const retryStress: DeepReasonRetryDetail = {
+    id: "forced_unsupported_claim_retry",
+    retryCount: retryResult.retry_count,
+    gateStatus: retryResult.deepreason.gateDecision?.status,
+    deniedClaimIds: retryResult.deepreason.gateDecision?.deniedClaimIds ?? [],
+    evidenceGaps: retryResult.deepreason.gateDecision?.evidenceGaps ?? [],
+    passed:
+      retryResult.retry_count === 2 &&
+      retryResult.deepreason.gateDecision?.status === "limited" &&
+      retryResult.deepreason.gateDecision.deniedClaimIds.includes(
+        "claim-forced-evidence-gap",
+      ) &&
+      retryResult.deepreason.gateDecision.evidenceGaps.length > 0 &&
+      retryResult.text.includes("免责声明"),
+  };
+
+  const completeDetails = details.filter((item) => item.expectComplete);
+  return {
+    metrics: [
+      metric(
+        "deepreason_tool_boundary_rate",
+        details.filter((item) => item.toolBoundaryCorrect).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_claim_evidence_coverage_rate",
+        completeDetails.filter((item) => item.claimCoverageCorrect).length,
+        completeDetails.length,
+      ),
+      metric(
+        "deepreason_source_verification_pass_rate",
+        completeDetails.filter((item) => item.sourceVerificationCorrect).length,
+        completeDetails.length,
+      ),
+      metric(
+        "deepreason_gate_decision_accuracy",
+        details.filter((item) => item.gateDecisionCorrect).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_memory_proposal_gate_rate",
+        details.filter((item) => item.memoryProposalCorrect).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_report_verification_rate",
+        details.filter((item) => item.verificationCorrect).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_legacy_parity_task_outcome_rate",
+        details.filter((item) => item.legacyParityCorrect).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_safety_disclaimer_retention_rate",
+        details.filter((item) => item.disclaimerRetained).length,
+        details.length,
+      ),
+      metric(
+        "deepreason_max_retry_evidence_gap_rate",
+        retryStress.passed ? 1 : 0,
+        1,
+      ),
+    ],
+    diagnostics: {
+      evaluatedCases: details.length,
+      completeCases: completeDetails.length,
+      missingFeatureCases: details.length - completeDetails.length,
+      averageWorkflowNodeCount: average(
+        details.map((item) => item.workflowNodeCount),
+      ),
+      averageRuntimeMs: average(details.map((item) => item.runtimeMs)),
+      averageAgentTraceCount: average(
+        details.map((item) => item.toolNames.length),
+      ),
+      gateStatusCounts: countBy(
+        details.map((item) => item.gateStatus ?? "clarification"),
+      ),
+      memoryProposalStatusCounts: countBy(
+        details.map((item) => item.memoryProposalStatus ?? "none"),
+      ),
+    },
+    details,
+    retryStress,
+  };
+}
+
 function flattenMetrics(sections: Array<{ metrics: EvalMetric[] }>) {
   return sections.flatMap((section) => section.metrics);
 }
@@ -630,9 +1001,11 @@ function markdownReport(report: {
   summary: { overallPassRate: number; metrics: EvalMetric[] };
   sections?: {
     retrievalAblations?: RetrievalAblationVariant[];
+    deepReason?: DeepReasonEvaluation;
   };
 }) {
   const retrievalAblations = report.sections?.retrievalAblations ?? [];
+  const deepReason = report.sections?.deepReason;
   const ablationLines =
     retrievalAblations.length === 0
       ? []
@@ -677,8 +1050,40 @@ function markdownReport(report: {
           }),
           "",
         ];
+  const deepReasonLines = !deepReason
+    ? []
+    : [
+        "## DeepReason Runtime Evaluation",
+        "",
+        "| Metric | Score | Numerator | Denominator |",
+        "| --- | ---: | ---: | ---: |",
+        ...deepReason.metrics.map(
+          (item) =>
+            `| ${item.name} | ${(item.value * 100).toFixed(1)}% | ${item.numerator} | ${item.denominator} |`,
+        ),
+        "",
+        "### DeepReason Diagnostics",
+        "",
+        `- evaluated_cases: ${deepReason.diagnostics.evaluatedCases}`,
+        `- complete_cases: ${deepReason.diagnostics.completeCases}`,
+        `- missing_feature_cases: ${deepReason.diagnostics.missingFeatureCases}`,
+        `- average_workflow_node_count: ${deepReason.diagnostics.averageWorkflowNodeCount}`,
+        `- average_runtime_ms: ${deepReason.diagnostics.averageRuntimeMs}`,
+        `- average_tool_call_count: ${deepReason.diagnostics.averageAgentTraceCount}`,
+        `- gate_status_counts: ${JSON.stringify(deepReason.diagnostics.gateStatusCounts)}`,
+        `- memory_proposal_status_counts: ${JSON.stringify(deepReason.diagnostics.memoryProposalStatusCounts)}`,
+        "",
+        "### DeepReason Retry Stress",
+        "",
+        `- retry_count: ${deepReason.retryStress.retryCount}`,
+        `- gate_status: ${deepReason.retryStress.gateStatus ?? "none"}`,
+        `- denied_claim_ids: ${deepReason.retryStress.deniedClaimIds.join(", ") || "none"}`,
+        `- evidence_gap_count: ${deepReason.retryStress.evidenceGaps.length}`,
+        `- passed: ${deepReason.retryStress.passed}`,
+        "",
+      ];
   const lines = [
-    "# M6 Evaluation Report",
+    "# HCC Agent Evaluation Report",
     "",
     `Generated at: ${report.generatedAt}`,
     "",
@@ -694,6 +1099,7 @@ function markdownReport(report: {
     ),
     "",
     ...ablationLines,
+    ...deepReasonLines,
     "## Safety Note",
     "",
     "All evaluated inputs and memory records are synthetic demo data. This evaluation does not validate clinical performance.",
@@ -717,7 +1123,8 @@ async function main() {
     const retrievalAblations = evaluateRetrievalAblations(medicalQa);
     const patients = await evaluatePatientCases(patientCases, endpoints);
     const safety = await evaluateSafetyCases(safetyCases, endpoints);
-    const metrics = flattenMetrics([retrieval, patients, safety]);
+    const deepReason = await evaluateDeepReasonRuntime(patientCases, endpoints);
+    const metrics = flattenMetrics([retrieval, patients, safety, deepReason]);
     const overallPassRate =
       metrics.reduce((sum, item) => sum + item.value, 0) / metrics.length;
     const report = {
@@ -726,6 +1133,8 @@ async function main() {
         medicalQa: medicalQa.length,
         patientCases: patientCases.length,
         safetyCases: safetyCases.length,
+        deepReasonPatientCases: patientCases.length,
+        deepReasonRetryStressCases: 1,
       },
       summary: {
         overallPassRate: Number(overallPassRate.toFixed(4)),
@@ -736,6 +1145,7 @@ async function main() {
         retrievalAblations,
         patients,
         safety,
+        deepReason,
       },
       safetyNotice: "演示用合成数据，非真实患者数据；非临床诊断依据。",
     };

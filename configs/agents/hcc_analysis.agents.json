@@ -1,0 +1,373 @@
+{
+  "version": "1.0",
+  "name": "hcc-deepreason-analysis-agents",
+  "revision": "phase7-memory-proposal-v1",
+  "protected_agents": [
+    "hcc_coordinator",
+    "feature_collector",
+    "memory_manager",
+    "prediction_operator",
+    "explanation_operator",
+    "medical_retriever",
+    "claim_checker",
+    "source_verifier",
+    "medical_safety_reviewer",
+    "report_writer"
+  ],
+  "agents": [
+    {
+      "id": "hcc_coordinator",
+      "label": "HCC Coordinator",
+      "description": "Owns request intake, workflow state visibility, and final response packaging for synthetic HCC analysis.",
+      "responsibilities": [
+        "Normalize synthetic analysis requests",
+        "Advance workflow state without generating medical facts",
+        "Return clarification, limited output, or verified report payload"
+      ],
+      "model_role": "planner",
+      "tools": [
+        "workflow_status"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "can_route_workflow": true,
+        "cannot_generate_medical_claims": true,
+        "cannot_generate_prediction_probability": true,
+        "requires_safety_notice": true
+      },
+      "memory_access": [
+        "workflow_state:read"
+      ],
+      "workflow_nodes": [
+        "intake",
+        "respond"
+      ],
+      "handoff_contract": {
+        "receives": "raw request or terminal workflow state",
+        "emits": "normalized request or final response payload"
+      },
+      "ui": {
+        "trace_label": "coordinator"
+      }
+    },
+    {
+      "id": "feature_collector",
+      "label": "Feature Collector",
+      "description": "Merges session working memory and checks the 10 synthetic causal candidate features.",
+      "responsibilities": [
+        "Read and update session feature state",
+        "Identify missing synthetic feature fields",
+        "Ask only for missing fields when input is incomplete"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "checkFeatureCompleteness"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "can_request_missing_features": true,
+        "forbid_downstream_when_missing": true,
+        "cannot_call_prediction_service": true,
+        "cannot_write_case_memory": true
+      },
+      "memory_access": [
+        "short_term:read",
+        "short_term:write",
+        "session_state:read",
+        "session_state:write"
+      ],
+      "workflow_nodes": [
+        "feature_check"
+      ],
+      "handoff_contract": {
+        "receives": "normalized request + session feature state",
+        "emits": "feature completeness result + merged synthetic features"
+      },
+      "ui": {
+        "trace_label": "feature_check"
+      }
+    },
+    {
+      "id": "memory_manager",
+      "label": "Memory Manager",
+      "description": "Reads synthetic case history and prepares gated memory write proposals after verification.",
+      "responsibilities": [
+        "Read prior synthetic case records",
+        "Generate revisit comparison inputs",
+        "Create memory proposals only after report verification"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "getPatientHistory",
+        "createMemoryProposal"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "direct_case_memory_write": false,
+        "requires_approval_for_write": true,
+        "requires_evidence_ids_for_write": true,
+        "cannot_modify_prediction_outputs": true
+      },
+      "memory_access": [
+        "case_memory:read",
+        "case_memory:proposal",
+        "evidence_ledger:read"
+      ],
+      "workflow_nodes": [
+        "history_retrieve",
+        "memory_proposal"
+      ],
+      "handoff_contract": {
+        "receives": "patient_id, verified report, synthetic case state, and evidence IDs",
+        "emits": "case history evidence or pending memory proposal"
+      },
+      "ui": {
+        "trace_label": "memory"
+      }
+    },
+    {
+      "id": "prediction_operator",
+      "label": "Prediction Operator",
+      "description": "Calls the deterministic Random Forest prediction service for complete synthetic HCC features.",
+      "responsibilities": [
+        "Validate complete synthetic feature payload",
+        "Call the RF prediction service",
+        "Return only tool-produced labels, probabilities, and model metadata"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "predictHccGrade"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "requires_complete_features": true,
+        "forbid_llm_prediction": true,
+        "cannot_generate_report": true,
+        "cannot_access_case_memory": true
+      },
+      "memory_access": [],
+      "workflow_nodes": [
+        "prediction"
+      ],
+      "handoff_contract": {
+        "receives": "10 complete synthetic causal candidate features",
+        "emits": "model prediction evidence draft"
+      },
+      "ui": {
+        "trace_label": "prediction"
+      }
+    },
+    {
+      "id": "explanation_operator",
+      "label": "Explanation Operator",
+      "description": "Calls the deterministic SHAP service and preserves causal-SHAP consistency labels.",
+      "responsibilities": [
+        "Call SHAP TreeExplainer service",
+        "Return tool-produced feature contribution values",
+        "Separate high-trust causal candidates from statistical-only explanations"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "explainPredictionWithShap"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "requires_prediction_evidence": true,
+        "forbid_llm_shap_values": true,
+        "cannot_generate_prediction_probability": true,
+        "cannot_generate_report": true
+      },
+      "memory_access": [],
+      "workflow_nodes": [
+        "shap_explain"
+      ],
+      "handoff_contract": {
+        "receives": "complete synthetic features + prediction evidence",
+        "emits": "SHAP evidence draft + trust labels"
+      },
+      "ui": {
+        "trace_label": "shap"
+      }
+    },
+    {
+      "id": "medical_retriever",
+      "label": "Medical Retriever",
+      "description": "Retrieves public, traceable, rewritten medical background snippets for evidence binding.",
+      "responsibilities": [
+        "Run hybrid retrieval over the local public knowledge base",
+        "Build focused follow-up queries for unsupported claims",
+        "Return traceable snippets without generating medical conclusions"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "retrieveMedicalEvidence",
+        "buildFollowUpQuery"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "public_traceable_sources_only": true,
+        "copyright_safe_summaries_only": true,
+        "cannot_generate_medical_judgment": true,
+        "cannot_call_prediction_service": true
+      },
+      "memory_access": [
+        "knowledge_base:read",
+        "evidence_ledger:append"
+      ],
+      "workflow_nodes": [
+        "evidence_retrieve",
+        "build_follow_up_query"
+      ],
+      "handoff_contract": {
+        "receives": "prediction, SHAP features, and optional evidence gaps",
+        "emits": "ranked retrieval hits and knowledge-base evidence drafts"
+      },
+      "ui": {
+        "trace_label": "retrieval"
+      }
+    },
+    {
+      "id": "claim_checker",
+      "label": "Claim Checker",
+      "description": "Binds model, SHAP, and medical background claims to structured Evidence items.",
+      "responsibilities": [
+        "Create Claim-Evidence mappings",
+        "Classify support as supported, partially_supported, or unsupported",
+        "Generate follow-up evidence needs for unsupported claims"
+      ],
+      "model_role": "critic",
+      "tools": [
+        "checkClaims"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "requires_evidence_binding": true,
+        "can_mark_unsupported_claims": true,
+        "cannot_generate_medical_judgment": true,
+        "cannot_modify_tool_outputs": true
+      },
+      "memory_access": [
+        "evidence_ledger:read",
+        "evidence_ledger:append"
+      ],
+      "workflow_nodes": [
+        "claim_check"
+      ],
+      "handoff_contract": {
+        "receives": "model, SHAP, and KB evidence drafts",
+        "emits": "claim-evidence map, unsupported claims, and evidence gaps"
+      },
+      "ui": {
+        "trace_label": "claim_check"
+      }
+    },
+    {
+      "id": "source_verifier",
+      "label": "Source Verifier",
+      "description": "Checks source URI, locator, duplication, conflicts, and citation completeness.",
+      "responsibilities": [
+        "Validate citation URI and locator fields",
+        "Detect duplicate or conflicting evidence",
+        "Return invalid evidence IDs without making medical judgments"
+      ],
+      "model_role": "critic",
+      "tools": [
+        "verifyEvidenceSources"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "requires_traceable_sources": true,
+        "can_flag_source_conflicts": true,
+        "cannot_generate_claims": true,
+        "cannot_generate_medical_judgment": true
+      },
+      "memory_access": [
+        "evidence_ledger:read"
+      ],
+      "workflow_nodes": [
+        "source_verify"
+      ],
+      "handoff_contract": {
+        "receives": "claim-evidence map and retrieval evidence",
+        "emits": "source verification result and invalid evidence IDs"
+      },
+      "ui": {
+        "trace_label": "source_verify"
+      }
+    },
+    {
+      "id": "medical_safety_reviewer",
+      "label": "Medical Safety Reviewer",
+      "description": "Applies evidence, tool-boundary, and disclaimer gates before report release.",
+      "responsibilities": [
+        "Evaluate whether prediction and SHAP tool outputs exist",
+        "Check evidence sufficiency and disclaimer requirements",
+        "Verify final report consistency before memory proposal"
+      ],
+      "model_role": "critic",
+      "tools": [
+        "evaluateMedicalConfidenceGate"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "can_allow_limited_or_deny": true,
+        "requires_prediction_tool": true,
+        "requires_shap_tool": true,
+        "requires_disclaimer": true,
+        "cannot_modify_tool_outputs": true
+      },
+      "memory_access": [
+        "evidence_ledger:read",
+        "gate_decisions:append"
+      ],
+      "workflow_nodes": [
+        "confidence_gate",
+        "verify"
+      ],
+      "handoff_contract": {
+        "receives": "claim map, source verification, gate context, and report draft",
+        "emits": "gate decision or final verification result"
+      },
+      "ui": {
+        "trace_label": "safety_gate"
+      }
+    },
+    {
+      "id": "report_writer",
+      "label": "Report Writer",
+      "description": "Generates a structured synthetic HCC report using only approved tool outputs and supported Evidence.",
+      "responsibilities": [
+        "Generate structured report sections",
+        "Preserve evidence IDs and unsupported evidence gaps",
+        "Attach synthetic-data and non-clinical-use disclaimers"
+      ],
+      "model_role": "worker",
+      "tools": [
+        "generateHccReport"
+      ],
+      "permissions": {
+        "synthetic_data_only": true,
+        "evidence_only_generation": true,
+        "requires_gate_allow_or_limited": true,
+        "requires_disclaimer": true,
+        "cannot_call_prediction_service": true,
+        "cannot_invent_citations": true
+      },
+      "memory_access": [
+        "evidence_ledger:read",
+        "case_memory:read",
+        "gate_decisions:read"
+      ],
+      "workflow_nodes": [
+        "report_generate"
+      ],
+      "handoff_contract": {
+        "receives": "gate decision, permitted claims, evidence index, and history comparison",
+        "emits": "structured report draft with evidence IDs and disclaimer"
+      },
+      "ui": {
+        "trace_label": "report"
+      }
+    }
+  ]
+}

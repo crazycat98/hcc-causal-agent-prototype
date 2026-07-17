@@ -122,7 +122,7 @@ after(async () => {
   });
 });
 
-test("M7 API route returns Agent report and structured Tool outputs", async () => {
+test("M8 API route returns DeepReason workflow report and legacy-compatible outputs", async () => {
   const response = await POST(
     new Request("http://127.0.0.1:3000/api/analyze", {
       method: "POST",
@@ -147,5 +147,25 @@ test("M7 API route returns Agent report and structured Tool outputs", async () =
   );
   assert.equal(payload.analysis.explanation.shap.top_features[0].feature, "portal_vein_invasion");
   assert.ok(payload.analysis.evidence.results.length > 0);
+  assert.equal(payload.analysis.memory.saved, false);
   assert.match(payload.text, /免责声明/);
+  assert.ok(payload.deepreason.workflowTrace.length > 0);
+  assert.ok(payload.deepreason.agentTrace.length > 0);
+  assert.equal(payload.deepreason.gateDecision.status, "allow");
+  assert.ok(payload.deepreason.claimEvidenceMap.length > 0);
+  assert.ok(payload.deepreason.evidenceItems.length > 0);
+  assert.equal(payload.deepreason.memoryProposal.status, "pending_approval");
+  assert.equal(payload.deepreason.memoryProposal.applied, false);
+  assert.equal(payload.deepreason.retryCount, 0);
+  assert.equal(payload.deepreason.verificationResult.passed, true);
+  assert.ok(
+    payload.toolCalls.some(
+      (call: { toolName: string }) => call.toolName === "createMemoryProposal",
+    ),
+  );
+  assert.ok(
+    !payload.toolCalls.some(
+      (call: { toolName: string }) => call.toolName === "saveCaseMemory",
+    ),
+  );
 });

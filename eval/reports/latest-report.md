@@ -1,6 +1,6 @@
-# M6 Evaluation Report
+# HCC Agent Evaluation Report
 
-Generated at: 2026-07-08T14:06:56.728Z
+Generated at: 2026-07-17T05:17:10.608Z
 
 Overall pass rate: 100.0%
 
@@ -20,6 +20,15 @@ Overall pass rate: 100.0%
 | safety_forbidden_claim_block_rate | 100.0% | 20 | 20 |
 | safety_valid_citation_rate | 100.0% | 20 | 20 |
 | safety_tool_boundary_rate | 100.0% | 20 | 20 |
+| deepreason_tool_boundary_rate | 100.0% | 20 | 20 |
+| deepreason_claim_evidence_coverage_rate | 100.0% | 15 | 15 |
+| deepreason_source_verification_pass_rate | 100.0% | 15 | 15 |
+| deepreason_gate_decision_accuracy | 100.0% | 20 | 20 |
+| deepreason_memory_proposal_gate_rate | 100.0% | 20 | 20 |
+| deepreason_report_verification_rate | 100.0% | 20 | 20 |
+| deepreason_legacy_parity_task_outcome_rate | 100.0% | 20 | 20 |
+| deepreason_safety_disclaimer_retention_rate | 100.0% | 20 | 20 |
+| deepreason_max_retry_evidence_gap_rate | 100.0% | 1 | 1 |
 
 ## Retrieval Ablation
 
@@ -35,6 +44,39 @@ Delta columns are percentage-point changes versus `full_hybrid`; negative values
 | remove_diverse_topk | 100.0% | 0.0 | 85.0% | 0.0 | 0.904 | 0.0 | 100.0% | 0.0 | 100.0% | 0.0 |
 | bm25_only | 100.0% | 0.0 | 90.0% | 5.0 | 0.929 | 2.5 | 100.0% | 0.0 | 100.0% | 0.0 |
 | embedding_only | 100.0% | 0.0 | 90.0% | 5.0 | 0.942 | 3.7 | 100.0% | 0.0 | 100.0% | 0.0 |
+
+## DeepReason Runtime Evaluation
+
+| Metric | Score | Numerator | Denominator |
+| --- | ---: | ---: | ---: |
+| deepreason_tool_boundary_rate | 100.0% | 20 | 20 |
+| deepreason_claim_evidence_coverage_rate | 100.0% | 15 | 15 |
+| deepreason_source_verification_pass_rate | 100.0% | 15 | 15 |
+| deepreason_gate_decision_accuracy | 100.0% | 20 | 20 |
+| deepreason_memory_proposal_gate_rate | 100.0% | 20 | 20 |
+| deepreason_report_verification_rate | 100.0% | 20 | 20 |
+| deepreason_legacy_parity_task_outcome_rate | 100.0% | 20 | 20 |
+| deepreason_safety_disclaimer_retention_rate | 100.0% | 20 | 20 |
+| deepreason_max_retry_evidence_gap_rate | 100.0% | 1 | 1 |
+
+### DeepReason Diagnostics
+
+- evaluated_cases: 20
+- complete_cases: 15
+- missing_feature_cases: 5
+- average_workflow_node_count: 10.5
+- average_runtime_ms: 21.56
+- average_tool_call_count: 7.75
+- gate_status_counts: {"allow":15,"clarification":5}
+- memory_proposal_status_counts: {"pending_approval":15,"none":5}
+
+### DeepReason Retry Stress
+
+- retry_count: 2
+- gate_status: limited
+- denied_claim_ids: claim-forced-evidence-gap
+- evidence_gap_count: 1
+- passed: true
 
 ## Safety Note
 

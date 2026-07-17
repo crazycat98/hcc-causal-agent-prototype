@@ -1,0 +1,573 @@
+{
+  "version": "1.0",
+  "name": "hcc-deepreason-analysis-workflow",
+  "revision": "phase7-memory-proposal-v1",
+  "start_node": "intake",
+  "terminal_nodes": [
+    "respond"
+  ],
+  "protected_nodes": [
+    "intake",
+    "feature_check",
+    "history_retrieve",
+    "prediction",
+    "shap_explain",
+    "evidence_retrieve",
+    "claim_check",
+    "build_follow_up_query",
+    "source_verify",
+    "confidence_gate",
+    "report_generate",
+    "verify",
+    "memory_proposal",
+    "respond"
+  ],
+  "nodes": [
+    {
+      "id": "intake",
+      "label": "请求接收",
+      "agent": "hcc_coordinator",
+      "description": "接收合成患者特征和用户补充要求，建立 HCC 分析上下文。",
+      "work": "规范化 session_id、patient_id、合成特征和用户要求，不生成预测或医学结论。",
+      "input_contract": "session_id + optional patient_id + partial synthetic HCC features + optional user instruction",
+      "output_contract": "normalized HCC analysis request",
+      "handler_kind": "builtin",
+      "handler": "intake",
+      "checkpoint": false,
+      "gate_policy": {
+        "synthetic_data_only": true
+      },
+      "ui": {
+        "implementation_status": "framework_builtin"
+      }
+    },
+    {
+      "id": "feature_check",
+      "label": "特征完整性检查",
+      "agent": "feature_collector",
+      "description": "合并会话工作记忆并检查 10 个因果候选特征是否完整。",
+      "work": "仅返回已获得字段、缺失字段和合并后的合成特征；缺失时不调用后续预测工具。",
+      "input_contract": "normalized request + session feature state",
+      "output_contract": "feature completeness result + merged synthetic features",
+      "handler_kind": "plugin_tool",
+      "handler": "checkFeatureCompleteness",
+      "checkpoint": true,
+      "gate_policy": {
+        "synthetic_data_only": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "history_retrieve",
+      "label": "历史病例查询",
+      "agent": "memory_manager",
+      "description": "查询同一 synthetic patient_id 的历史分析记录。",
+      "work": "只读取病例记忆，不写入长期记忆。",
+      "input_contract": "complete synthetic features + optional patient_id",
+      "output_contract": "latest synthetic case history or no-history result",
+      "handler_kind": "plugin_tool",
+      "handler": "getPatientHistory",
+      "checkpoint": true,
+      "gate_policy": {
+        "memory_access": "read_only"
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "prediction",
+      "label": "确定性预测",
+      "agent": "prediction_operator",
+      "description": "调用 Random Forest 服务返回合成病理分级标签和概率。",
+      "work": "预测结果只能来自 deterministic ML service，不允许 Agent 自行生成概率。",
+      "input_contract": "10 complete synthetic causal candidate features",
+      "output_contract": "prediction label + probabilities + model metadata",
+      "handler_kind": "plugin_tool",
+      "handler": "predictHccGrade",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_complete_features": true,
+        "forbid_llm_prediction": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "shap_explain",
+      "label": "SHAP解释",
+      "agent": "explanation_operator",
+      "description": "调用 SHAP TreeExplainer 服务并保留因果候选一致性标签。",
+      "work": "解释值只能来自 SHAP Tool；区分高可信因果候选解释和仅统计相关解释。",
+      "input_contract": "complete synthetic features + prediction output",
+      "output_contract": "SHAP Top-N + trust labels + consistency summary",
+      "handler_kind": "plugin_tool",
+      "handler": "explainPredictionWithShap",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_prediction_evidence": true,
+        "forbid_llm_shap_values": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "evidence_retrieve",
+      "label": "医学证据检索",
+      "agent": "medical_retriever",
+      "description": "根据预测和 SHAP 特征检索公开、可追溯的医学背景资料。",
+      "work": "运行 BM25、local hash embedding 和 heuristic rerank，仅返回知识库中的公开摘要。",
+      "input_contract": "prediction + SHAP Top features + optional follow-up query",
+      "output_contract": "ranked retrieval results + confidence + evidence drafts",
+      "handler_kind": "plugin_tool",
+      "handler": "retrieveMedicalEvidence",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_traceable_sources": true,
+        "copyright_safe_summaries_only": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "claim_check",
+      "label": "Claim证据核验",
+      "agent": "claim_checker",
+      "description": "将模型输出、SHAP解释和医学背景 Claim 绑定到 Evidence。",
+      "work": "标记 supported、partially_supported 或 unsupported，并为缺口生成 follow-up 检索需求。",
+      "input_contract": "prediction evidence + SHAP evidence + medical evidence",
+      "output_contract": "claim-evidence map + unsupported claims + evidence gaps",
+      "handler_kind": "plugin_tool",
+      "handler": "checkClaims",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_evidence_binding": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "build_follow_up_query",
+      "label": "补充检索查询",
+      "agent": "medical_retriever",
+      "description": "根据 unsupported Claim 构造最小补充检索请求。",
+      "work": "只围绕证据缺口扩展查询，不改变预测结果或 SHAP 输出。",
+      "input_contract": "unsupported claims + prior retrieval diagnostics + retry count",
+      "output_contract": "follow-up retrieval query + updated retry count",
+      "handler_kind": "plugin_tool",
+      "handler": "buildFollowUpQuery",
+      "checkpoint": false,
+      "gate_policy": {
+        "max_retry": 2
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "source_verify",
+      "label": "来源核验",
+      "agent": "source_verifier",
+      "description": "检查来源 URI、定位、重复证据、冲突和引用完整性。",
+      "work": "只核验检索来源和证据契约，不自行生成医学判断。",
+      "input_contract": "claim-evidence map + retrieval evidence",
+      "output_contract": "source verification result + conflicts + invalid evidence IDs",
+      "handler_kind": "plugin_tool",
+      "handler": "verifyEvidenceSources",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_traceable_sources": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "confidence_gate",
+      "label": "医学安全门禁",
+      "agent": "medical_safety_reviewer",
+      "description": "综合特征完整性、Tool输出、证据充分性、来源核验和安全声明做出门禁决策。",
+      "work": "输出 allow、interrupt 或 deny；无预测Tool输出、无免责声明或存在越权诊断时不得放行强结论。",
+      "input_contract": "prediction + SHAP + claim map + source verification + safety context",
+      "output_contract": "gate decision + reasons + permitted report scope",
+      "handler_kind": "plugin_tool",
+      "handler": "evaluateMedicalConfidenceGate",
+      "checkpoint": true,
+      "gate_policy": {
+        "approval_action": "generate_hcc_report",
+        "risk": "high",
+        "requires_prediction_tool": true,
+        "requires_shap_tool": true,
+        "requires_disclaimer": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "report_generate",
+      "label": "结构化报告生成",
+      "agent": "report_writer",
+      "description": "根据通过门禁的 Tool、Evidence 和 Claim 生成结构化报告。",
+      "work": "不得生成 Tool 未返回的概率、SHAP值、引用或诊断结论；证据不足时保留缺口说明。",
+      "input_contract": "gate decision + permitted claims + evidence index + history comparison",
+      "output_contract": "structured synthetic HCC report draft",
+      "handler_kind": "plugin_tool",
+      "handler": "generateHccReport",
+      "checkpoint": true,
+      "gate_policy": {
+        "requires_gate_allow_or_limited": true,
+        "requires_disclaimer": true
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "verify",
+      "label": "最终验证",
+      "agent": "medical_safety_reviewer",
+      "description": "验证报告字段、Claim-Evidence绑定、门禁状态和免责声明一致性。",
+      "work": "发现缺失字段或无依据结论时要求修订；达到修订上限后输出受限结果。",
+      "input_contract": "report draft + claim-evidence map + gate decision",
+      "output_contract": "verification result + revision requests",
+      "handler_kind": "builtin",
+      "handler": "verify",
+      "checkpoint": true,
+      "gate_policy": {
+        "max_revision": 1
+      },
+      "ui": {
+        "implementation_status": "framework_builtin"
+      }
+    },
+    {
+      "id": "memory_proposal",
+      "label": "记忆写入提案",
+      "agent": "memory_manager",
+      "description": "为已验证的合成病例生成长期记忆写入提案。",
+      "work": "默认只生成 proposal；正式写入必须检查 Evidence ID、patient_id、合成数据声明和 approved_by。",
+      "input_contract": "verified report + synthetic case state + evidence IDs",
+      "output_contract": "memory proposal or no-write decision",
+      "handler_kind": "plugin_tool",
+      "handler": "createMemoryProposal",
+      "checkpoint": true,
+      "gate_policy": {
+        "approval_action": "write_case_memory",
+        "requires_approval": true,
+        "direct_write": false
+      },
+      "ui": {
+        "implementation_status": "implemented"
+      }
+    },
+    {
+      "id": "respond",
+      "label": "最终响应",
+      "agent": "hcc_coordinator",
+      "description": "输出澄清请求、受限结果或完整结构化报告与调试轨迹。",
+      "work": "返回最终文本、workflow trace、agent trace、Evidence、Gate、retry 和 memory proposal。",
+      "input_contract": "clarification, interrupted decision, verified report, or memory proposal",
+      "output_contract": "final HCC analysis response",
+      "handler_kind": "builtin",
+      "handler": "respond",
+      "checkpoint": false,
+      "gate_policy": {
+        "requires_synthetic_data_notice": true
+      },
+      "ui": {
+        "implementation_status": "framework_builtin"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "intake_to_feature_check",
+      "from": "intake",
+      "to": "feature_check",
+      "type": "flow",
+      "condition": "request normalized",
+      "handoff_contract": {
+        "payload": "normalized_request + session_state"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "feature_check_to_respond_missing",
+      "from": "feature_check",
+      "to": "respond",
+      "type": "branch",
+      "condition": "missing_features.length > 0",
+      "handoff_contract": {
+        "payload": "missing_features + received_features + safety_notice"
+      },
+      "gate_policy": {
+        "forbid_downstream_tools": true
+      },
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "feature_check_to_history",
+      "from": "feature_check",
+      "to": "history_retrieve",
+      "type": "branch",
+      "condition": "feature_state.complete == true",
+      "handoff_contract": {
+        "payload": "complete_features + patient_id"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "history_to_prediction",
+      "from": "history_retrieve",
+      "to": "prediction",
+      "type": "flow",
+      "condition": "history lookup completed",
+      "handoff_contract": {
+        "payload": "complete_features + history"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "prediction_to_shap",
+      "from": "prediction",
+      "to": "shap_explain",
+      "type": "flow",
+      "condition": "prediction tool completed",
+      "handoff_contract": {
+        "payload": "prediction evidence + complete_features"
+      },
+      "gate_policy": {
+        "requires_prediction_tool": true
+      },
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "shap_to_evidence",
+      "from": "shap_explain",
+      "to": "evidence_retrieve",
+      "type": "flow",
+      "condition": "SHAP tool completed",
+      "handoff_contract": {
+        "payload": "prediction + SHAP Top features"
+      },
+      "gate_policy": {
+        "requires_shap_tool": true
+      },
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "evidence_to_claim_check",
+      "from": "evidence_retrieve",
+      "to": "claim_check",
+      "type": "flow",
+      "condition": "retrieval attempt completed",
+      "handoff_contract": {
+        "payload": "all evidence drafts + retrieval diagnostics + retry count"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": true
+    },
+    {
+      "id": "claim_check_to_source_verify",
+      "from": "claim_check",
+      "to": "source_verify",
+      "type": "branch",
+      "condition": "unsupported_claims.length == 0",
+      "handoff_contract": {
+        "payload": "claim_evidence_map + evidence index"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": true
+    },
+    {
+      "id": "claim_check_to_follow_up",
+      "from": "claim_check",
+      "to": "build_follow_up_query",
+      "type": "retry",
+      "condition": "unsupported_claims.length > 0 && evidence_retry_count < 2",
+      "handoff_contract": {
+        "payload": "unsupported_claims + evidence gaps + prior query"
+      },
+      "gate_policy": {
+        "bounded_retry": true
+      },
+      "planner_contract": {
+        "retry_counter": "evidence_retry_count",
+        "max_retry": 2,
+        "on_exhausted": "confidence_gate"
+      },
+      "reviewer_required": true
+    },
+    {
+      "id": "follow_up_to_evidence",
+      "from": "build_follow_up_query",
+      "to": "evidence_retrieve",
+      "type": "retry",
+      "condition": "follow_up_query ready",
+      "handoff_contract": {
+        "payload": "follow_up_query + incremented evidence_retry_count"
+      },
+      "gate_policy": {
+        "bounded_retry": true
+      },
+      "planner_contract": {
+        "retry_counter": "evidence_retry_count",
+        "max_retry": 2
+      },
+      "reviewer_required": false
+    },
+    {
+      "id": "claim_check_to_gate_exhausted",
+      "from": "claim_check",
+      "to": "confidence_gate",
+      "type": "branch",
+      "condition": "unsupported_claims.length > 0 && evidence_retry_count >= 2",
+      "handoff_contract": {
+        "payload": "claim_evidence_map + evidence gaps + retry history"
+      },
+      "gate_policy": {
+        "force_limited_output": true
+      },
+      "planner_contract": {
+        "retry_counter": "evidence_retry_count",
+        "max_retry": 2
+      },
+      "reviewer_required": true
+    },
+    {
+      "id": "source_verify_to_gate",
+      "from": "source_verify",
+      "to": "confidence_gate",
+      "type": "flow",
+      "condition": "source verification completed",
+      "handoff_contract": {
+        "payload": "claim map + verified sources + conflicts"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": true
+    },
+    {
+      "id": "gate_to_report",
+      "from": "confidence_gate",
+      "to": "report_generate",
+      "type": "branch",
+      "condition": "gate.status == allow || gate.status == limited",
+      "handoff_contract": {
+        "payload": "permitted claims + gate reasons + evidence index"
+      },
+      "gate_policy": {
+        "requires_disclaimer": true
+      },
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "gate_to_respond",
+      "from": "confidence_gate",
+      "to": "respond",
+      "type": "branch",
+      "condition": "gate.status == interrupt || gate.status == deny",
+      "handoff_contract": {
+        "payload": "gate decision + reasons + required evidence or approval"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "report_to_verify",
+      "from": "report_generate",
+      "to": "verify",
+      "type": "flow",
+      "condition": "report draft generated",
+      "handoff_contract": {
+        "payload": "report draft + claim map + gate decision"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": true
+    },
+    {
+      "id": "verify_to_memory_proposal",
+      "from": "verify",
+      "to": "memory_proposal",
+      "type": "branch",
+      "condition": "verification.passed == true",
+      "handoff_contract": {
+        "payload": "verified report + synthetic case + evidence IDs"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    },
+    {
+      "id": "verify_to_report_revision",
+      "from": "verify",
+      "to": "report_generate",
+      "type": "revise",
+      "condition": "verification.passed == false && report_revision_count < 1",
+      "handoff_contract": {
+        "payload": "revision requests + prior report draft"
+      },
+      "gate_policy": {
+        "bounded_retry": true
+      },
+      "planner_contract": {
+        "retry_counter": "report_revision_count",
+        "max_retry": 1,
+        "on_exhausted": "respond"
+      },
+      "reviewer_required": true
+    },
+    {
+      "id": "verify_to_respond_exhausted",
+      "from": "verify",
+      "to": "respond",
+      "type": "branch",
+      "condition": "verification.passed == false && report_revision_count >= 1",
+      "handoff_contract": {
+        "payload": "verification failure + limited report + safety notice"
+      },
+      "gate_policy": {
+        "force_limited_output": true
+      },
+      "planner_contract": {
+        "retry_counter": "report_revision_count",
+        "max_retry": 1
+      },
+      "reviewer_required": true
+    },
+    {
+      "id": "memory_proposal_to_respond",
+      "from": "memory_proposal",
+      "to": "respond",
+      "type": "flow",
+      "condition": "memory proposal generated or skipped",
+      "handoff_contract": {
+        "payload": "verified report + memory proposal + workflow trace"
+      },
+      "gate_policy": {},
+      "planner_contract": {},
+      "reviewer_required": false
+    }
+  ]
+}

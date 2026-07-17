@@ -1,9 +1,11 @@
 {
-  "generatedAt": "2026-07-08T14:06:56.728Z",
+  "generatedAt": "2026-07-17T05:17:10.608Z",
   "datasetSizes": {
     "medicalQa": 20,
     "patientCases": 20,
-    "safetyCases": 20
+    "safetyCases": 20,
+    "deepReasonPatientCases": 20,
+    "deepReasonRetryStressCases": 1
   },
   "summary": {
     "overallPassRate": 1,
@@ -78,6 +80,60 @@
         "name": "safety_tool_boundary_rate",
         "numerator": 20,
         "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_tool_boundary_rate",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_claim_evidence_coverage_rate",
+        "numerator": 15,
+        "denominator": 15,
+        "value": 1
+      },
+      {
+        "name": "deepreason_source_verification_pass_rate",
+        "numerator": 15,
+        "denominator": 15,
+        "value": 1
+      },
+      {
+        "name": "deepreason_gate_decision_accuracy",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_memory_proposal_gate_rate",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_report_verification_rate",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_legacy_parity_task_outcome_rate",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_safety_disclaimer_retention_rate",
+        "numerator": 20,
+        "denominator": 20,
+        "value": 1
+      },
+      {
+        "name": "deepreason_max_retry_evidence_gap_rate",
+        "numerator": 1,
+        "denominator": 1,
         "value": 1
       }
     ]
@@ -5125,6 +5181,619 @@
           ]
         }
       ]
+    },
+    "deepReason": {
+      "metrics": [
+        {
+          "name": "deepreason_tool_boundary_rate",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_claim_evidence_coverage_rate",
+          "numerator": 15,
+          "denominator": 15,
+          "value": 1
+        },
+        {
+          "name": "deepreason_source_verification_pass_rate",
+          "numerator": 15,
+          "denominator": 15,
+          "value": 1
+        },
+        {
+          "name": "deepreason_gate_decision_accuracy",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_memory_proposal_gate_rate",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_report_verification_rate",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_legacy_parity_task_outcome_rate",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_safety_disclaimer_retention_rate",
+          "numerator": 20,
+          "denominator": 20,
+          "value": 1
+        },
+        {
+          "name": "deepreason_max_retry_evidence_gap_rate",
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1
+        }
+      ],
+      "diagnostics": {
+        "evaluatedCases": 20,
+        "completeCases": 15,
+        "missingFeatureCases": 5,
+        "averageWorkflowNodeCount": 10.5,
+        "averageRuntimeMs": 21.56,
+        "averageAgentTraceCount": 7.75,
+        "gateStatusCounts": {
+          "allow": 15,
+          "clarification": 5
+        },
+        "memoryProposalStatusCounts": {
+          "pending_approval": 15,
+          "none": 5
+        }
+      },
+      "details": [
+        {
+          "id": "case-001",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 36.063,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-002",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.868,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-003",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.529,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-004",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 29.019,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-005",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 29.307,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-006",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 27.376,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-007",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 30.228,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-008",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 29.115,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-009",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 27.672,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-010",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.546,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-011",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.32,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-012",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.543,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-013",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 16.65,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-014",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.364,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-015",
+          "expectComplete": true,
+          "finishReason": "stop",
+          "gateStatus": "allow",
+          "memoryProposalStatus": "pending_approval",
+          "workflowNodeCount": 13,
+          "runtimeMs": 28.834,
+          "toolNames": [
+            "checkFeatureCompleteness",
+            "getPatientHistory",
+            "predictHccGrade",
+            "explainPredictionWithShap",
+            "retrieveMedicalEvidence",
+            "checkClaims",
+            "verifyEvidenceSources",
+            "evaluateMedicalConfidenceGate",
+            "generateHccReport",
+            "createMemoryProposal"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-016",
+          "expectComplete": false,
+          "finishReason": "clarification_required",
+          "workflowNodeCount": 3,
+          "runtimeMs": 1.333,
+          "toolNames": [
+            "checkFeatureCompleteness"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-017",
+          "expectComplete": false,
+          "finishReason": "clarification_required",
+          "workflowNodeCount": 3,
+          "runtimeMs": 1.106,
+          "toolNames": [
+            "checkFeatureCompleteness"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-018",
+          "expectComplete": false,
+          "finishReason": "clarification_required",
+          "workflowNodeCount": 3,
+          "runtimeMs": 1.18,
+          "toolNames": [
+            "checkFeatureCompleteness"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-019",
+          "expectComplete": false,
+          "finishReason": "clarification_required",
+          "workflowNodeCount": 3,
+          "runtimeMs": 1.116,
+          "toolNames": [
+            "checkFeatureCompleteness"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        },
+        {
+          "id": "case-020",
+          "expectComplete": false,
+          "finishReason": "clarification_required",
+          "workflowNodeCount": 3,
+          "runtimeMs": 1.041,
+          "toolNames": [
+            "checkFeatureCompleteness"
+          ],
+          "toolBoundaryCorrect": true,
+          "claimCoverageCorrect": true,
+          "sourceVerificationCorrect": true,
+          "gateDecisionCorrect": true,
+          "memoryProposalCorrect": true,
+          "verificationCorrect": true,
+          "legacyParityCorrect": true,
+          "disclaimerRetained": true
+        }
+      ],
+      "retryStress": {
+        "id": "forced_unsupported_claim_retry",
+        "retryCount": 2,
+        "gateStatus": "limited",
+        "deniedClaimIds": [
+          "claim-forced-evidence-gap"
+        ],
+        "evidenceGaps": [
+          "source_type:knowledge_base terms:zzzx_nonexistent_hcc_marker"
+        ],
+        "passed": true
+      }
     }
   },
   "safetyNotice": "演示用合成数据，非真实患者数据；非临床诊断依据。"

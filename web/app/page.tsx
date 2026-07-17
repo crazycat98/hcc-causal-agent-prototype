@@ -214,6 +214,49 @@ type MemoryOutput = {
   };
 };
 
+type DeepReasonTraceItem = {
+  nodeId: string;
+  agentName: string;
+  handlerName: string;
+  status: string;
+  durationMs: number;
+  outputSummary: string;
+};
+
+type DeepReasonClaimEvidence = {
+  claimId: string;
+  supportStatus: "supported" | "partially_supported" | "unsupported";
+  evidenceIds: string[];
+};
+
+type DeepReasonGateDecision = {
+  status: "allow" | "limited" | "interrupt" | "deny";
+  permittedClaimIds: string[];
+  deniedClaimIds: string[];
+  evidenceGaps: string[];
+  reasons: string[];
+};
+
+type DeepReasonMemoryProposal = {
+  proposalId: string;
+  status: "pending_approval" | "approved_applied" | "rejected";
+  applied: boolean;
+};
+
+type DeepReasonOutput = {
+  workflowTrace: DeepReasonTraceItem[];
+  agentTrace: DeepReasonTraceItem[];
+  claimEvidenceMap: DeepReasonClaimEvidence[];
+  gateDecision?: DeepReasonGateDecision;
+  retryCount: number;
+  memoryProposal?: DeepReasonMemoryProposal;
+  verificationResult?: {
+    passed: boolean;
+    status: string;
+    failures: string[];
+  };
+};
+
 type AnalyzeResponse = {
   safetyNotice: string;
   disclaimer: string;
@@ -231,6 +274,7 @@ type AnalyzeResponse = {
     evidence?: Evidence;
     memory?: MemoryOutput;
   };
+  deepreason?: DeepReasonOutput;
 };
 
 function initialValues(): FeatureValues {
@@ -350,6 +394,8 @@ export default function Page() {
   const evidence = result?.analysis?.evidence;
   const memory = result?.analysis?.memory;
   const completeness = result?.analysis?.completeness;
+  const deepreason = result?.deepreason;
+  const gateDecision = deepreason?.gateDecision;
   const missingFeatures = completeness?.missingFeatures ?? [];
 
   return (
@@ -551,6 +597,51 @@ export default function Page() {
             />
           </div>
 
+          <div className="grid gap-3 md:grid-cols-4">
+            <MetricPanel
+              icon={<ShieldCheck className="h-5 w-5" aria-hidden />}
+              label="DeepReason Gate"
+              value={gateDecision?.status ?? "等待 Gate"}
+              tone={
+                gateDecision?.status === "allow"
+                  ? "teal"
+                  : gateDecision?.status === "limited"
+                    ? "amber"
+                    : "slate"
+              }
+            />
+            <MetricPanel
+              icon={<ClipboardList className="h-5 w-5" aria-hidden />}
+              label="Claim-Evidence"
+              value={
+                deepreason
+                  ? `${deepreason.claimEvidenceMap.length} 条 Claim`
+                  : "等待核验"
+              }
+              tone="slate"
+            />
+            <MetricPanel
+              icon={<RefreshCw className="h-5 w-5" aria-hidden />}
+              label="证据重试"
+              value={
+                typeof deepreason?.retryCount === "number"
+                  ? String(deepreason.retryCount)
+                  : "等待"
+              }
+              tone={deepreason?.retryCount ? "amber" : "teal"}
+            />
+            <MetricPanel
+              icon={<Database className="h-5 w-5" aria-hidden />}
+              label="Memory Proposal"
+              value={deepreason?.memoryProposal?.status ?? "等待提案"}
+              tone={
+                deepreason?.memoryProposal?.status === "rejected"
+                  ? "amber"
+                  : "teal"
+              }
+            />
+          </div>
+
           {missingFeatures.length > 0 ? (
             <div className="rounded-md border border-amber-300 bg-amber-50 p-4">
               <div className="flex items-center gap-2 font-semibold text-amber-950">
@@ -732,6 +823,67 @@ export default function Page() {
                     ))
                   ) : (
                     <EmptyState text="等待 Agent 调用 Tool。" />
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-md border border-slate-200 bg-white p-4 shadow-panel">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="h-5 w-5 text-teal-700" aria-hidden />
+                  Gate 决策
+                </div>
+                {gateDecision ? (
+                  <div className="mt-3 grid gap-2 text-sm">
+                    <div className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2">
+                      <span className="text-slate-600">status</span>
+                      <span className="font-semibold">{gateDecision.status}</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2">
+                      <span className="text-slate-600">permitted</span>
+                      <span className="font-semibold">
+                        {gateDecision.permittedClaimIds.length}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2">
+                      <span className="text-slate-600">denied</span>
+                      <span className="font-semibold">
+                        {gateDecision.deniedClaimIds.length}
+                      </span>
+                    </div>
+                    <p className="rounded-md bg-slate-50 p-3 leading-6 text-slate-700">
+                      {gateDecision.reasons[0] ?? "等待 Gate 输出。"}
+                    </p>
+                  </div>
+                ) : (
+                  <EmptyState text="等待 DeepReason Gate 输出。" />
+                )}
+              </div>
+
+              <div className="rounded-md border border-slate-200 bg-white p-4 shadow-panel">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ClipboardList className="h-5 w-5 text-teal-700" aria-hidden />
+                  Workflow Trace
+                </div>
+                <div className="mt-3 grid gap-2">
+                  {deepreason?.workflowTrace.length ? (
+                    deepreason.workflowTrace.map((item, index) => (
+                      <div
+                        key={`${item.nodeId}-${index}`}
+                        className="rounded-md border border-slate-200 px-3 py-2 text-sm"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-medium">{item.nodeId}</span>
+                          <span className="text-slate-500">
+                            {item.durationMs.toFixed(1)}ms
+                          </span>
+                        </div>
+                        <div className="mt-1 text-xs text-slate-500">
+                          {item.agentName} · {item.status}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <EmptyState text="等待 DeepReason 工作流轨迹。" />
                   )}
                 </div>
               </div>
